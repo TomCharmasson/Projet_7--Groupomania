@@ -1,4 +1,4 @@
-const { Model } = require("sequelize")
+const { Model } = require("sequelize/types")
 
 module.exports = (sequelize, DataTypes) => {
     class Comment extends Model {}
