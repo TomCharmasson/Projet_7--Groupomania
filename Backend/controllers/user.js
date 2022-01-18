@@ -1,6 +1,7 @@
-const db = require("../models")
+// Import database models
+const db = require("../models/database")
 const User = db.users
-const Message = db.messages
+const Post = db.posts
 const Comment = db.comments
 
 // Trouver un utilisateur
@@ -23,9 +24,9 @@ exports.findOneUser = (req, res, next) => {
         .then(cmtcount => { userInfo.commentsCount = cmtcount })
     })
     .then(() => {
-        Message.count({ where: { userId: req.params.id }})
+        Post.count({ where: { userId: req.params.id }})
         .then(msgcount => { 
-            userInfo.messagesCount = msgcount 
+            userInfo.postsCount = msgcount 
             res.status(200).json(userInfo)
         })
     })  

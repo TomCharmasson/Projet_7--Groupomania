@@ -23,7 +23,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-const db = require("./models")
+const db = require("./models/database")
 db.sequelize.sync()
 
 app.use("/images", express.static(path.join(__dirname, "images")))

@@ -1,5 +1,7 @@
-const db = require("../models")
+// Import database models
+const db = require("../models/database")
 const User = db.users
+
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 

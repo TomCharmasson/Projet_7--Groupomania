@@ -1,6 +1,6 @@
-const models = require("../models")
+const models = require("../models/database")
 
-// Create models
+// Import models
 const Post = models.posts
 const Comment = models.comments
 const User = models.users
