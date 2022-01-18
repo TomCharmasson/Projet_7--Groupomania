@@ -16,7 +16,6 @@ const postRoutes = require("./routes/post")
 const commentRoutes = require("./routes/comment")
 
 
-// Lets use express
 app.use(helmet())
 app.use(cors())
 

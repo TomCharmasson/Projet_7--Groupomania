@@ -1,9 +1,9 @@
-const models = require("../models/database")
+// Import database models
+const db = require("../models/database")
 
-// Import models
-const Post = models.posts
-const Comment = models.comments
-const User = models.users
+const Post = db.posts
+const Comment = db.comments
+const User = db.users
 
 // Tous les posts
 exports.findAllPosts = (req, res, next) => {

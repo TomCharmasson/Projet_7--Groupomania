@@ -1,4 +1,6 @@
+// Import database models
 const db = require("../models/database")
+
 const Comment = db.comments
 const User = db.users
 
