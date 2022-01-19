@@ -6,10 +6,12 @@ const User = require("../models/user");
 
 // Inscription d'un utilisateur
 exports.signup = (req, res, next) => {
+  console.log("signup");
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
       const user = new User({
+        username: req.body.username,
         email: req.body.email,
         password: hash,
       });
