@@ -1,47 +1,45 @@
-// Import database models
-const db = require("../models/database")
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-const User = db.users
-const Post = db.posts
-const Comment = db.comments
+// Models import
+const User = require("../models/user2");
 
-// Trouver un utilisateur
-exports.findOneUser = (req, res, next) => {
-    const userInfo = {}
-    User.findOne({ where: { id: req.params.id }})
-    .then(user => {
-        userInfo.userName = user.userName
-        userInfo.email = user.email
-        if (user.isAdmin == false) {
-          userInfo.role = "Utilisateur"
-        } else {
-          userInfo.role = "Administrateur"
-        }
-        userInfo.createdAt = user.createdAt
-        userInfo.avatar = user.avatar
+// Inscription d'un utilisateur
+exports.signup = (req, res, next) => {
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      const user = new User({
+        email: req.body.email,
+        password: hash,
+      });
+      user
+        .save()
+        .then(() => res.status(201).json({ message: "Utilisateur créé ! ✅ 👌" }))
+        .catch((error) => res.status(400).json({ error }));
     })
-    .then(() => {
-        Comment.count({ where: { userId: req.params.id }})
-        .then(cmtcount => { userInfo.commentsCount = cmtcount })
-    })
-    .then(() => {
-        Post.count({ where: { userId: req.params.id }})
-        .then(msgcount => { 
-            userInfo.postsCount = msgcount 
-            res.status(200).json(userInfo)
+    .catch((error) => res.status(500).json({ error }));
+};
+
+// Connexion d'un utilisateur
+exports.login = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (!user) {
+        return res.status(401).json({ error: "Utilisateur non trouvé ! ❌ 🤷‍♂️" });
+      }
+      bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+          if (!valid) {
+            return res.status(401).json({ error: "Mot de passe incorrect ! ❌ 🙅‍♂️" });
+          }
+          res.status(200).json({
+            userId: user._id,
+            token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+          });
         })
-    })  
-    .catch(error => res.status(404).json({ error }))
-}
-
-// Modifier un utilisateur
-exports.modifyUser = (req, res, next) => {
-    const userObject = req.file ?
-        {
-            ...req.body.userId,
-            avatar: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-        } : { ... req.body}
-    User.update({ ...userObject, id:  req.params.id}, { where: { id: req.params.id }})
-      .then(() => res.status(200).json({ ...userObject }))
-      .catch(error => res.status(400).json({ error }))
-}
+        .catch((error) => res.status(500).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
+};

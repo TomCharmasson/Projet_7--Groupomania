@@ -1,12 +1,11 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-// Controllers import
-const userCtrl = require("../controllers/user")
-const multer = require("../middleware/multer-config")
+// Controller import
+const userCtrl = require("../controllers/user");
 
 // Routes for user
-router.get("/:id", userCtrl.findOneUser)
-router.put("/:id", multer, userCtrl.modifyUser)
+router.post("/signup", userCtrl.signup);
+router.post("/login", userCtrl.login);
 
-module.exports = router
+module.exports = router;

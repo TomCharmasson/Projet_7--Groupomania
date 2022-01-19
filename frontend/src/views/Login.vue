@@ -9,12 +9,24 @@
         <h1 class="h1 my-5 fw-bold">Connexion</h1>
 
         <div class="form-floating mb-3">
-          <input type="username" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="username" required/>
-          <label for="floatingInput">Username</label>
+          <input 
+            type="username" 
+            class="form-control" 
+            id="floatingInput" 
+            placeholder="name@example.com" 
+            v-model="username" 
+            required />
+          <label for="floatingInput">Pseudo</label>
         </div>
 
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password" required/>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="floatingPassword" 
+            placeholder="Password" 
+            v-model="password" 
+            required />
           <label for="floatingPassword">Mot de passe</label>
         </div>
 
@@ -22,7 +34,12 @@
 
         <div class="form-group d-flex justify-content-evenly mb-3">
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="remindme"/>
+            <input 
+              class="form-check-input" 
+              type="checkbox" 
+              role="switch" 
+              id="flexSwitchCheckChecked" 
+              v-model="remindme" />
             <label class="form-check-label" for="flexSwitchCheckChecked">Se souvenir de moi</label>
           </div>
           <div class="">
@@ -31,11 +48,10 @@
         </div>
 
         <p class="text-center">Pas encore membre ? <router-link to="/signup">S'inscrire</router-link></p>
-        
+
         <p>Username : {{ username }}</p>
         <p>Password : {{ password }}</p>
         <p>Se Souvenir de moi : {{ remindme }}</p>
-
       </form>
     </div>
   </section>
@@ -54,5 +70,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
