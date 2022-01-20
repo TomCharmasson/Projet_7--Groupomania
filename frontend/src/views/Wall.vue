@@ -28,6 +28,16 @@ export default {
       posts: [],
     };
   },
+  created() {
+    const token = this.$store.getters.getToken;
+    console.log(token)
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+    this.axios.get("/api/post", config).then((response) => {
+      console.log(response.data);
+   });
+  },
   methods: {
     addPost(post) {
       this.posts.push(post);
