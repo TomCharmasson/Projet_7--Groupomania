@@ -7,6 +7,8 @@ const { sequelize } = require("./models");  // ORM qui permet de mapper les clas
 // Import routes
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post");
+const commentRoutes = require("./routes/comment");
+const likeRoutes = require("./routes/like");
 
 // Create express app
 const app = express();
@@ -28,6 +30,8 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 // Use routes
 app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/comment", commentRoutes);
+app.use("/api/like", likeRoutes);
 
 // Using sequelize to connect to the database
 const syncDatabase = async () => {
