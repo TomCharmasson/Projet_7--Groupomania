@@ -1,5 +1,5 @@
 <template>
-  <div class="wall">
+  <div class="home">
     <Header />
     <Post @post-submitted="addPost" />
     <PostList v-if="posts.length" :posts="posts" />
@@ -15,7 +15,7 @@ import Post from "@/components/Post.vue";
 import PostList from "@/components/PostList.vue";
 
 export default {
-  name: "Wall",
+  name: "Home",
   components: {
     Header,
     Footer,

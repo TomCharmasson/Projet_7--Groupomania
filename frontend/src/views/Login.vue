@@ -43,8 +43,8 @@ export default {
   name: "Login",
   data() {
     return {
-      email: "a@aaaa.fr",
-      password: "123456",
+      email: "",
+      password: "",
       remindme: true,
     };
   },
@@ -54,7 +54,7 @@ export default {
         .post("/api/auth/login", { email: this.email, password: this.password })
         .then((response) => {
           const token = response.data.token;
-          this.$store.dispatch("setToken", token); // Appelle l'action setToken
+          this.$store.dispatch("setToken", token);
         })
         .then(async () => {
           console.log("redirect");
