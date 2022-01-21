@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "Post",
+  name: "PostCreate",
 
   data() {
     return {

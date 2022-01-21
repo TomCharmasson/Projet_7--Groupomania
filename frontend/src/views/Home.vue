@@ -1,8 +1,8 @@
 <template>
   <div class="home">
     <Header />
-    <Post @post-submitted="addPost" />
-    <PostList/>
+    <PostCreate @post-submitted="addPost" />
+    <PostList />
     <Footer />
   </div>
 </template>
@@ -11,7 +11,7 @@
 // @ is an alias to /src
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-import Post from "@/components/Post.vue";
+import PostCreate from "@/components/PostCreate.vue";
 import PostList from "@/components/PostList.vue";
 
 export default {
@@ -19,30 +19,8 @@ export default {
   components: {
     Header,
     Footer,
-    Post,
+    PostCreate,
     PostList,
-  },
-
-  data() {
-    return {
-      posts: [],
-    };
-  },
-  created() {
-    const token = this.$store.getters.getToken; // Récupère le token du store
-    const config = {
-      headers: { Authorization: `Bearer ${token}` }, // Ajoute le token dans les headers
-    };
-    this.axios
-      .get("/api/post", config)
-      .then((response) => {
-      console.log(response.data);
-    });
-  },
-  methods: {
-    addPost(post) {
-      this.posts.push(post);
-    },
   },
 };
 </script>

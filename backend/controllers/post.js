@@ -4,8 +4,8 @@ const token = require("../middleware/auth");
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await db.Post.findAll({
-      attributes: ["id", "message", "image", "createdAt"],
+    const posts = await db.Post.findAll({ // findAll permet de récupérer toutes les données de la table Post
+      attributes: ["id", "message", "image", "createdAt"], // on récupère les champs id, message, image et createdAt
       order: [["createdAt", "DESC"]],
       include: [
         {

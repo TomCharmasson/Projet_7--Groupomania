@@ -6,7 +6,9 @@ import Home from "../views/Home.vue";
 import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import ForgottenPassword from "../views/ForgottenPassword.vue";
+import Profile from "../views/Profile.vue";
 import NotFound from "../views/NotFound.vue";
+
 
 const routes = [
   {
@@ -39,6 +41,14 @@ const routes = [
     component: ForgottenPassword,
     meta: {
       title : "Mot de passe oublié"
+    }
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
+    meta: {
+      title : "Profil"
     }
   },
   {

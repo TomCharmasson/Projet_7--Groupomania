@@ -15,11 +15,11 @@
             <img src="../assets/profile/default-profile.jpg" alt="mdo" class="rounded-circle" width="32" height="32" />
           </a>
           <ul class="dropdown-menu text-small dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="dropdownUser1" style="">
-            <li><a class="dropdown-item" href="#">Fil d'actualité</a></li>
+            <li><router-link class="dropdown-item" to="/home">Fil d'actualité</router-link></li>
             <li><hr class="dropdown-divider" /></li>
             <li><router-link class="dropdown-item" to="/profile">Mon Profile</router-link></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Se Deconnecter</a></li>
+            <li><router-link class="dropdown-item" to="/login">Se Deconnecter</router-link></li>
           </ul>
         </div>
       </div>

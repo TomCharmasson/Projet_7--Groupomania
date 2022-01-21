@@ -3,13 +3,14 @@
     <h3>Posts here 👇</h3>
     <ul class="list-group">
       <li class="list-group-item py-3" v-for="(post, index) in posts" :key="index">
-        {{ post.User.username}} à posté :<br>
+        {{ post.User.username }} à posté :<br />
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-        <PostDelete/>
-        <Like/>
-        <CommentList/>
+        <PostModify />
+        <PostDelete />
+        <Like />
+        <CommentList />
         <Comment />
       </li>
     </ul>
@@ -20,31 +21,32 @@
 import Comment from "./Comment.vue";
 import CommentList from "./CommentList.vue";
 import PostDelete from "./PostDelete.vue";
+import PostModify from "./PostModify.vue";
+import Like from "./Like.vue";
 export default {
-    name: "PostList",
-    data() {
-        return {
-            posts: null,
-        };
+  name: "PostList",
+  components: { Comment, CommentList, PostDelete, Like, PostModify },
+  data() {
+    return {
+      posts: null,
+    };
+  },
+  methods: {
+    getPosts() {
+      const token = this.$store.getters.getToken; // get the token from store
+      const headers = {
+        headers: { Authorization: `Bearer ${token}` }, // add the token to the header
+      };
+      this.axios
+        .get("/api/post", headers)
+        .then((response) => (this.posts = response.data))
+        .catch((error) => console.log(error));
+      console.log(this.posts);
     },
-    methods: {
-        getPosts() {
-            const _this = this;
-            console.log("aaa");
-            const token = this.$store.getters.getToken;
-            console.log(token);
-            const config = {
-                headers: { Authorization: `Bearer ${token}` },
-            };
-            this.axios.get("/api/post", config).then((response) => {
-                _this.posts = response.data;
-            });
-        },
-    },
-    created() {
-        this.getPosts();
-    },
-    components: { Comment, CommentList, PostDelete }
+  },
+  created() {
+    this.getPosts();
+  },
 };
 </script>
 
