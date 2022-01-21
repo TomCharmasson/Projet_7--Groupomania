@@ -2,7 +2,7 @@
   <div class="home">
     <Header />
     <Post @post-submitted="addPost" />
-    <PostList v-if="posts.length" :posts="posts" />
+    <PostList/>
     <Footer />
   </div>
 </template>
@@ -30,11 +30,12 @@ export default {
   },
   created() {
     const token = this.$store.getters.getToken; // Récupère le token du store
-    console.log(token);
     const config = {
       headers: { Authorization: `Bearer ${token}` }, // Ajoute le token dans les headers
     };
-    this.axios.get("/api/post", config).then((response) => {
+    this.axios
+      .get("/api/post", config)
+      .then((response) => {
       console.log(response.data);
     });
   },
