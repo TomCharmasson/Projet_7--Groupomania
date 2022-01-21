@@ -12,12 +12,20 @@ export default {
   name: "Like",
   data() {
     return {
-      likes: 0,
+      likes: "",
     };
   },
   methods: {
-    likeIt() {
-      this.likes++;
+    addAlike() {
+    const token = this.$store.getters.getToken;
+    const header = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
+    this.axios
+      .post("/api/like", header)
+      .then((response) => {
+        this.likes = response.data.likes;
+      });
     },
   },
 };

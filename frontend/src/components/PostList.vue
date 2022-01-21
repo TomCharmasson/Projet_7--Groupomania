@@ -3,55 +3,48 @@
     <h3>Posts here 👇</h3>
     <ul class="list-group">
       <li class="list-group-item py-3" v-for="(post, index) in posts" :key="index">
-        {{ post.title }} <br>
-        {{ post.content }}
+        {{ post.User.username}} à posté :<br>
+        {{ post.message }} <br />
+        écrit à : {{ post.createdAt }} <br />
+        {{ post.image }} <br />
+        <PostDelete/>
+        <Like/>
+        <CommentList/>
+        <Comment />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import Comment from "./Comment.vue";
+import CommentList from "./CommentList.vue";
+import PostDelete from "./PostDelete.vue";
 export default {
-  name: "PostList",
-  data() {
-    return {
-      posts: [
-        {
-          title: "Post 1",
-          content: "Lorem ipsum dolor sit amet.",
+    name: "PostList",
+    data() {
+        return {
+            posts: null,
+        };
+    },
+    methods: {
+        getPosts() {
+            const _this = this;
+            console.log("aaa");
+            const token = this.$store.getters.getToken;
+            console.log(token);
+            const config = {
+                headers: { Authorization: `Bearer ${token}` },
+            };
+            this.axios.get("/api/post", config).then((response) => {
+                _this.posts = response.data;
+            });
         },
-        {
-          title: "Post 2",
-          content: "Lorem ipsum dolor sit amet.",
-        },
-        {
-          title: "Post 3",
-          content: "Lorem ipsum dolor sit amet.",
-        },
-      ],
-    };
-  },
-  methods: {
-      getPosts() {
-        this.axios
-          .get("https://jsonplaceholder.typicode.com/posts")
-          .then((response) => {
-            this.posts = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      },
-    // getAllPosts() {
-    //   const token = this.$store.getters.getToken; // Récupère le token du store
-    //   const config = {
-    //     headers: { Authorization: `Bearer ${token}` }, // Ajoute le token dans les headers
-    //   };
-    //   this.axios
-    //     .get("/api/post", config)
-    //     .then((response) => { this.posts = response.data });
-    // },
-  },
+    },
+    created() {
+        this.getPosts();
+    },
+    components: { Comment, CommentList, PostDelete }
 };
 </script>
 
