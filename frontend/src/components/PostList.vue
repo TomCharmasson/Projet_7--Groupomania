@@ -7,28 +7,17 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-        <PostModify />
-        <PostDelete />
-        <Like />
-        <CommentList />
-        <Comment />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import Comment from "./Comment.vue";
-import CommentList from "./CommentList.vue";
-import PostDelete from "./PostDelete.vue";
-import PostModify from "./PostModify.vue";
-import Like from "./Like.vue";
 export default {
   name: "PostList",
-  components: { Comment, CommentList, PostDelete, Like, PostModify },
   data() {
     return {
-      posts: null,
+      posts: [],
     };
   },
   methods: {
