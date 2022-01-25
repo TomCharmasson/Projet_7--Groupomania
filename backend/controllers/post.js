@@ -133,8 +133,13 @@ exports.updatePost = async (req, res) => {
       },
     });
     if (post.UserId === token.getUserId(req)) {
+      imageUrl = null;
+      if (req.file) {
+        imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+      }
       await post.update({
         message: req.body.message,
+        image: imageUrl,
       });
       res.status(200).send({ message: "Post updated" });
     } else {
