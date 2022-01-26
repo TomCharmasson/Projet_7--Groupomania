@@ -14,7 +14,7 @@ export default {
   name: "Comment",
   data() {
     return {
-      comments: "",
+      comment: "",
     };
   },
   methods: {

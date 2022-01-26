@@ -33,7 +33,7 @@ export default {
       console.log(this.posts);
     },
   },
-  created() {
+  mounted() {
     this.getPosts();
   },
 };

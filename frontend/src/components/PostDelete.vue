@@ -17,12 +17,14 @@ export default {
   },
   methods: {
     deletePost() {
-      const token = this.$store.getters.getToken;
-      const header = {
-        headers: { Authorization: `Bearer ${token}` },
+      const token = this.$store.getters.getToken; // get the token from store
+      const headers = {
+        headers: { Authorization: `Bearer ${token}` }, // add the token to the headers
       };
       const id = this.$route.params.id;
-      this.axios.delete("/api/post/" + id, header).then((response) => {
+      this.axios
+        .delete("/api/post/" + id, headers)
+        .then((response) => {
         this.$emit("post-deleted", response.data); // On envoie le post à la vue parente
         this.post = "";
       });
