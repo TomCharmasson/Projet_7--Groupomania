@@ -8,19 +8,19 @@
       <h1 class="h1 my-5 fw-bold">Inscription</h1>
 
       <div class="form-floating mb-3">
-        <input type="username" class="form-control" id="floatingInput" placeholder="Be inspired"  required />
+        <input type="username" class="form-control" id="floatingInput" placeholder="Be inspired" v-model="username"  required />
         <label for="floatingInput">Pseudo</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"  required />
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="email"  required />
         <label for="floatingInput">Adresse Email</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"  required />
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password" required />
         <label for="floatingPassword">Mot de passe</label>
       </div>
 
-      <button type="submit" class="w-100 btn btn-lg btn-primary mb-5 text-white" @click="signup">S'inscrire</button>
+      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="button" @click="signup">S'inscrire</button>
 
       <p class="text-center">Déjà membre ? <router-link to="/login">Se Connecter</router-link></p>
     </div>
@@ -29,6 +29,7 @@
 
 <script>
 import store from "../store";
+
 
 export default {
   name: "Signup",
@@ -51,7 +52,7 @@ export default {
           const token = response.data.token;
           store.dispatch("setToken", token);
         })
-        .then(() => {
+        .then(async () => {
           this.$router.push({ name: "Home" });
         })
         .catch((error) => {

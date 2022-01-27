@@ -7,35 +7,39 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
+      <CommentList />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+import CommentList from "./CommentList.vue";
 export default {
-  name: "PostList",
-  data() {
-    return {
-      posts: [],
-    };
-  },
-  methods: {
-    getPosts() {
-      const token = this.$store.getters.getToken; // get the token from store
-      const headers = {
-        headers: { Authorization: `Bearer ${token}` }, // add the token to the header
-      };
-      this.axios
-        .get("/api/post", headers)
-        .then((response) => (this.posts = response.data))
-        .catch((error) => console.log(error));
-      console.log(this.posts);
+    name: "PostList",
+    components: { CommentList },
+    data() {
+        return {
+            posts: [],
+        };
     },
-  },
-  mounted() {
-    this.getPosts();
-  },
+    methods: {
+        getPosts() {
+            const token = this.$store.getters.getToken; // get the token from store
+            const headers = {
+                headers: { Authorization: `Bearer ${token}` }, // add the token to the header
+            };
+            this.axios
+                .get("/api/post", headers)
+                .then((response) => (this.posts = response.data))
+                .catch((error) => console.log(error));
+            console.log(this.posts);
+        },
+    },
+    mounted() {
+        this.getPosts();
+    },
+    
 };
 </script>
 

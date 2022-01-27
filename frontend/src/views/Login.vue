@@ -8,12 +8,12 @@
       <h1 class="h1 my-5 fw-bold">Connexion</h1>
 
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"  required />
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" v-model="email" required />
         <label for="floatingInput">Email</label>
       </div>
 
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"  required />
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" v-model="password" required />
         <label for="floatingPassword">Mot de passe</label>
       </div>
 
@@ -21,10 +21,10 @@
 
       <div class="form-group d-flex justify-content-evenly mb-3">
         <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"  />
+          <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" />
           <label class="form-check-label" for="flexSwitchCheckChecked">Se souvenir de moi</label>
         </div>
-        <div class="">
+        <div>
           <router-link to="/forgotten-password">Mot de passe oublié</router-link>
         </div>
       </div>
@@ -47,9 +47,10 @@ export default {
   methods: {
     login() {
       this.axios
-        .post("/api/auth/login", { 
-          email: this.email, 
-          password: this.password })
+        .post("/api/auth/login", {
+          email: this.email,
+          password: this.password,
+        })
         .then((response) => {
           const token = response.data.token;
           this.$store.dispatch("setToken", token);
@@ -57,8 +58,8 @@ export default {
         .then(async () => {
           this.$router.push({ name: "Home" });
         })
-        .catch((e) => {
-          this.errors.push(e);
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

@@ -23,10 +23,21 @@ export default {
     data() {
         return {
             user: {
-                username: "",
-                email: "",
             },
         };
+    },
+    methods: {
+        getUser() {
+            const token = this.$store.getters.getToken; // get the token from store
+            const headers = {
+                headers: { Authorization: `Bearer ${token}` }, // add the token to the header
+            };
+            this.axios
+                .get("/api/user", headers)
+                .then((response) => (this.user = response.data))
+                .catch((error) => console.log(error));
+            console.log(this.user);
+        },
     },
 };
 </script>

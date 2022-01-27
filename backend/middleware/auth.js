@@ -3,8 +3,9 @@ const jwt = require("jsonwebtoken");
 // Middleware to check if the user is authenticated
 module.exports = (req, res, next) => {
   try {
-    const userId = getUserId(req);
-    req.auth = { userId };
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+    const userId = decodedToken.userId
     if (req.body.userId && req.body.userId !== userId) {
       throw "Invalid user ID ! ❌ 🙅‍♂️";
     } else {
@@ -17,8 +18,7 @@ module.exports = (req, res, next) => {
   }
 };
 
-function getUserId(req, res, next) {
-  // on vérifie le userId du token
+module.exports.getUserId = (req, res, next) => {
   try {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(" ")[1];
@@ -35,13 +35,15 @@ function getUserId(req, res, next) {
   }
 }
 
-function isAdmin(req, res, next) {
-  // on vérifie si l'utilisateur est admin
+module.exports.isAdmin = (req, res, next) => {
   try {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(" ")[1];
-      const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // on le vérifie
+      const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+      console.log(decodedToken);
       if (decodedToken.user.admin) {
+        next();
+      } else {
         next();
       }
     } else {
@@ -56,5 +58,3 @@ function isAdmin(req, res, next) {
   }
 }
 
-module.exports.getUserId = getUserId;
-module.exports.isAdmin = isAdmin;

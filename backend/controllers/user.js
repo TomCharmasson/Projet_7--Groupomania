@@ -32,7 +32,6 @@ exports.signup = async (req, res, next) => {
 
 // Connexion d'un utilisateur
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   await db.User.findOne({
     where: { email: req.body.email },
   })
@@ -47,7 +46,10 @@ exports.login = async (req, res, next) => {
             return res.status(401).json({ error: "User or password not found ! ❌ 🙅‍♂️" });
           }
           res.status(200).json({
-            token: jwt.sign({ user: user }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+            token: jwt.sign(
+              { user: user },
+              "RANDOM_TOKEN_SECRET",
+              { expiresIn: "24h" }),
           });
         })
         .catch((error) => res.status(500).json({ error }));
