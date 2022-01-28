@@ -7,9 +7,9 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-        <PostModify />
-        <PostDelete />
-        <Like />
+        <PostModify :postParent="post"/>
+        <PostDelete :postParent="post"/>
+        <Like :postParent="post"/>
         {{ post.comments }} <br />
         <hr />
         <ul class="list-group">
@@ -18,7 +18,7 @@
           </li>
         </ul>
         <hr />
-        <CommentCreate />
+        <CommentCreate :postParent="post.Comments" />
       </li>
     </ul>
   </div>
@@ -49,12 +49,8 @@ export default {
   },
   methods: {
     getPosts() {
-      const token = this.$store.getters.getToken; // get the token from store
-      const headers = {
-        headers: { Authorization: `Bearer ${token}` }, // add the token to the header
-      };
       this.axios
-        .get("/api/post", headers)
+        .get("/api/post")
         .then((response) => (this.posts = response.data))
         .catch((error) => console.log(error));
     },

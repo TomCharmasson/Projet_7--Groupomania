@@ -18,23 +18,19 @@ export default {
       post: "",
     };
   },
-  
+
   methods: {
     createPost() {
       const post = {
         message: this.post,
       };
-      const token = this.$store.getters.getToken;
-      const header = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
       this.axios
-      .post("/api/post", post, header)
-      .then((response) => {
-        this.$emit("post-submitted", response.data); 
-        this.post = "";
-      })
-      .catch((error) => console.log(error));
+        .post("/api/post", post)
+        .then((response) => {
+          this.$emit("post-submitted", response.data);
+          this.post = "";
+        })
+        .catch((error) => console.log(error));
     },
   },
 };

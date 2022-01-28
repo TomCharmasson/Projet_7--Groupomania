@@ -10,18 +10,27 @@
 export default {
   name: "PostDelete",
 
+  data() {
+    return {
+      post: "",
+    };
+  },
+
+  created() {
+    this.post = this.postParent;
+  },
+
+  props: {
+    postParent: {
+      type: Object,
+      required: true,
+    },
+  },
+  
   methods: {
     deletePost() {
-    // ! Adapter l'id au post en question !
-      const post = {
-        id: 16, // TODO Ici !
-      };
-      const token = this.$store.getters.getToken;
-      const headers = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
       this.axios
-        .delete(`/api/post/${post.id}`, headers)
+        .delete(`/api/post/${this.post.id}`)
         .then((response) => {
           this.$emit("post-deleted", response.data);
         })

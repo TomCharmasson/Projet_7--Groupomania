@@ -11,12 +11,16 @@ import "bootstrap/dist/js/bootstrap.js";
 import './assets/css/style.css'
 
 // Set config defaults when creating the instance
-const axios = axiosApi.create({
+let axios = axiosApi.create({
     baseURL:'http://localhost:3000/'
+})
+ axios.interceptors.request.use(function (config) {
+    const token = store.getters.getToken;
+    config.headers.Authorization =  "Bearer " + token;
+    console.log("Auth With Token");
+    return config;
 });
-// Alter defaults after instance has been created
-// const token = this.$store.getters.getToken;
-// axios.defaults.headers.common['Authorization'] = 'Bearer ' + ${token};
+
 
 
 const app = createApp(App).use(store).use(router)

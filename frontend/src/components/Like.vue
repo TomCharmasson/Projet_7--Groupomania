@@ -19,17 +19,6 @@ export default {
     addAlike() {
       this.likes++;
     },
-    // addAlike() {
-    // const token = this.$store.getters.getToken;
-    // const header = {
-    //   headers: { Authorization: `Bearer ${token}` },
-    // };
-    // this.axios
-    //   .post("/api/like", header)
-    //   .then((response) => {
-    //     this.likes = response.data.likes;
-    //   });
-    // },
   },
 };
 </script>
