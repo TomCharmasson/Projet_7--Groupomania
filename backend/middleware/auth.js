@@ -22,9 +22,9 @@ module.exports.getUserId = (req, res, next) => {
   try {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(" ")[1];
-      const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // on le vérifie
+      const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
       const userId = decodedToken.user.id;
-      return userId; // on récupère l'id du token
+      return userId;
     } else {
       throw "Invalid request ! ❌ 🤷‍♂️";
     }

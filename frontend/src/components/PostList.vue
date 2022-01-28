@@ -7,39 +7,49 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-      <CommentList />
+        {{ post.likes }} <br />
+        <button class="btn btn-secondary" @click="like(post)">👍</button>
+        {{ post.comments }} <br />
+        <hr />
+        <ul class="list-group">
+          <li class="list-group-item py-3" v-for="(comment,index) in post.Comments" :key="index">
+            {{ comment.avatar }} / {{ comment.User.username }} à commenté : {{ comment.message }}
+          </li>
+        </ul>
+        <hr />
+        <CommentCreate />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import CommentList from "./CommentList.vue";
+import CommentCreate from "./CommentCreate.vue";
 export default {
-    name: "PostList",
-    components: { CommentList },
-    data() {
-        return {
-            posts: [],
-        };
+  components: {
+    CommentCreate,
+  },
+  name: "PostList",
+  data() {
+    return {
+      posts: [],
+    };
+  },
+  methods: {
+    getPosts() {
+      const token = this.$store.getters.getToken; // get the token from store
+      const headers = {
+        headers: { Authorization: `Bearer ${token}` }, // add the token to the header
+      };
+      this.axios
+        .get("/api/post", headers)
+        .then((response) => (this.posts = response.data))
+        .catch((error) => console.log(error));
     },
-    methods: {
-        getPosts() {
-            const token = this.$store.getters.getToken; // get the token from store
-            const headers = {
-                headers: { Authorization: `Bearer ${token}` }, // add the token to the header
-            };
-            this.axios
-                .get("/api/post", headers)
-                .then((response) => (this.posts = response.data))
-                .catch((error) => console.log(error));
-            console.log(this.posts);
-        },
-    },
-    mounted() {
-        this.getPosts();
-    },
-    
+  },
+  mounted() {
+    this.getPosts();
+  },
 };
 </script>
 

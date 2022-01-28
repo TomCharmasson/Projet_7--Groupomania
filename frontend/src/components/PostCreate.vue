@@ -4,8 +4,7 @@
       <h1 class="h3 my-5 fw-bold">Share a Post</h1>
       <input type="textarea" class="form-control form-floating mb-3" placeholder="Bla Bla ici..." id="post" v-model="post" required />
 
-      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Share your Post</button>
-      <p></p>
+      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Partage un Post</button>
     </form>
   </div>
 </template>
@@ -19,10 +18,10 @@ export default {
       post: "",
     };
   },
+  
   methods: {
     createPost() {
       const post = {
-        // On crée un objet post
         message: this.post,
       };
       const token = this.$store.getters.getToken;
@@ -32,9 +31,10 @@ export default {
       this.axios
       .post("/api/post", post, header)
       .then((response) => {
-        this.$emit("post-submitted", response.data); // On envoie le post à la vue parente
+        this.$emit("post-submitted", response.data); 
         this.post = "";
-      });
+      })
+      .catch((error) => console.log(error));
     },
   },
 };

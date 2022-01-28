@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div>
     <Header />
-    <PostCreate @post-submitted="addPost" />
+    <PostCreate />
     <PostList />
     <Footer />
   </div>
