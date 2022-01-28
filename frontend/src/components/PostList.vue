@@ -7,8 +7,9 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-        {{ post.likes }} <br />
-        <button class="btn btn-secondary" @click="like(post)">👍</button>
+        <PostModify />
+        <PostDelete />
+        <Like />
         {{ post.comments }} <br />
         <hr />
         <ul class="list-group">
@@ -24,16 +25,27 @@
 </template>
 
 <script>
+import PostModify from "./PostModify.vue";
+import PostDelete from "./PostDelete.vue";
 import CommentCreate from "./CommentCreate.vue";
+import Like from "./Like.vue";
+
 export default {
   components: {
+    PostModify,
+    PostDelete,
     CommentCreate,
-  },
+    Like,
+},
+
   name: "PostList",
   data() {
     return {
       posts: [],
     };
+  },
+  mounted() {
+    this.getPosts();
   },
   methods: {
     getPosts() {
@@ -47,9 +59,7 @@ export default {
         .catch((error) => console.log(error));
     },
   },
-  mounted() {
-    this.getPosts();
-  },
+  
 };
 </script>
 

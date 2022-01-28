@@ -78,7 +78,6 @@ exports.getPost = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const userId = token.getUserId(req);
-  console.log(userId);
   let imageUrl;
   try {
     const user = await db.User.findOne({

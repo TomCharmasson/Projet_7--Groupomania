@@ -1,5 +1,5 @@
 <template>
-<div class="container col-lg-6 mx-auto">
+  <div class="container col-lg-6 mx-auto">
     <form @submit.prevent="createComment">
       <input type="textarea" class="form-control form-floating mb-3" placeholder="Ajouté un commentaire" id="post" v-model="comment" required />
 

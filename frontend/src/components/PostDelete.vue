@@ -1,7 +1,7 @@
 <template>
   <div class="container col-lg-6 mx-auto">
     <form @submit.prevent="deletePost">
-      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Supprimer le Post</button>
+      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Supprimer le Post 🗑</button>
     </form>
   </div>
 </template>
@@ -10,24 +10,22 @@
 export default {
   name: "PostDelete",
 
-  data() {
-    return {
-      post: "",
-    };
-  },
   methods: {
     deletePost() {
-      const token = this.$store.getters.getToken; // get the token from store
-      const headers = {
-        headers: { Authorization: `Bearer ${token}` }, // add the token to the headers
+    // ! Adapter l'id au post en question !
+      const post = {
+        id: 16, // TODO Ici !
       };
-      const id = this.$route.params.id;
+      const token = this.$store.getters.getToken;
+      const headers = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
       this.axios
-        .delete("/api/post/" + id, headers)
+        .delete(`/api/post/${post.id}`, headers)
         .then((response) => {
-        this.$emit("post-deleted", response.data); // On envoie le post à la vue parente
-        this.post = "";
-      });
+          this.$emit("post-deleted", response.data);
+        })
+        .catch((error) => console.log(error));
     },
   },
 };

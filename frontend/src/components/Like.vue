@@ -1,9 +1,9 @@
 <template>
   <div class="likes">
+    <button class="btn border" @click="addAlike">👍</button> 
     <p v-if="likes === 0"> Aucun like 😥</p>
     <p v-else-if="likes === 1">{{ likes }} like</p>
     <p v-else>{{ likes }} likes</p>
-    <button @click="likeIt">J'aime</button>
   </div>
 </template>
 
@@ -12,21 +12,24 @@ export default {
   name: "Like",
   data() {
     return {
-      likes: "",
+      likes: 0,
     };
   },
   methods: {
     addAlike() {
-    const token = this.$store.getters.getToken;
-    const header = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-    this.axios
-      .post("/api/like", header)
-      .then((response) => {
-        this.likes = response.data.likes;
-      });
+      this.likes++;
     },
+    // addAlike() {
+    // const token = this.$store.getters.getToken;
+    // const header = {
+    //   headers: { Authorization: `Bearer ${token}` },
+    // };
+    // this.axios
+    //   .post("/api/like", header)
+    //   .then((response) => {
+    //     this.likes = response.data.likes;
+    //   });
+    // },
   },
 };
 </script>
