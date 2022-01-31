@@ -13,32 +13,31 @@
 <script>
 import Header from "../components/Header.vue";
 import Footer from "../components/Footer.vue";
+
 export default {
   name: "Profile",
+
   components: {
     Header,
     Footer,
   },
+
   data() {
     return {
-      user: {},
+      user: [],
     };
   },
+  mounted() {
+    this.getUser();
+  },
+
   methods: {
-    getAUser() {
-      const token = this.$store.getters.getToken;
-      const headers = {
-        headers: { Authorization: `Bearer ${token}` },
-      };
+    getUser() {
       this.axios
-        .get("/api/users", headers)
+        .get("/api/users")
         .then((response) => (this.user = response.data))
         .catch((error) => console.log(error));
     },
-  },
-  mounted() {
-    this.getAUser();
-    console.log(this.user);
   },
 };
 </script>

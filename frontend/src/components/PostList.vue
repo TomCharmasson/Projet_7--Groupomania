@@ -1,11 +1,13 @@
 <template>
   <div class="post-list container col-lg-6 mx-auto">
-    <h3>Posts here 👇</h3>
+    <h3>Posts ici 👇</h3>
     <ul class="list-group">
       <li class="list-group-item py-3" v-for="(post, index) in posts" :key="index">
-        {{ post.User.username }} à posté :<br />
-        {{ post.message }} <br />
-        écrit à : {{ post.createdAt }} <br />
+        <p>
+          <span class="nom">{{ post.User.username }}</span> à posté :
+        </p>
+        <p class="h3">{{ post.message }}</p>
+        <p>écrit à : {{ post.createdAt }}</p>
         {{ post.image }} <br />
         <PostModify :postParent="post" />
         <PostDelete :postParent="post" />
@@ -36,6 +38,8 @@ import CommentDelete from "./CommentDelete.vue";
 import Like from "./Like.vue";
 
 export default {
+  name: "PostList",
+
   components: {
     PostModify,
     PostDelete,
@@ -45,17 +49,17 @@ export default {
     Like,
   },
 
-  name: "PostList",
   data() {
     return {
       posts: [],
     };
   },
+
   mounted() {
     this.getPosts();
   },
 
-  methods: {
+  methods: {    
     getPosts() {
       this.axios
         .get("/api/post")
@@ -66,4 +70,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.nom {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+</style>
