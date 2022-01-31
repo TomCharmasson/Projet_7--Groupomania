@@ -10,12 +10,6 @@
 export default {
   name: "PostDelete",
 
-  data() {
-    return {
-      post: "",
-    };
-  },
-
   props: {
     postParent: {
       type: Object,

@@ -14,13 +14,8 @@ export default {
 
   data() {
     return {
-      comment: [],
+      comment: "",
     };
-  },
-
-  // Recupération de l'id du post
-  created() {
-    this.comment = this.postParent;
   },
 
   props: {
@@ -42,7 +37,7 @@ export default {
         this.$emit("comment-submitted", response.data); 
         this.comment = "";
       })
-      .catch( error => console.log(error));
+      .catch(error => console.log(error));
     },
   },
 };

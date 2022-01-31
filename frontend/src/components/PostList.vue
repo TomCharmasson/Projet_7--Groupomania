@@ -16,7 +16,8 @@
         <ul class="list-group">
           <li class="list-group-item py-3" v-for="(comment, index) in post.Comments" :key="index">
             {{ comment.avatar }} / {{ comment.User.username }} à commenté : {{ comment.message }}
-            <CommentModify :commentParent="post.Comments" />
+            <CommentModify :commentParent="comment" />
+            <CommentDelete :commentParent="comment" />
           </li>
         </ul>
         <hr />
@@ -31,6 +32,7 @@ import PostModify from "./PostModify.vue";
 import PostDelete from "./PostDelete.vue";
 import CommentCreate from "./CommentCreate.vue";
 import CommentModify from "./CommentModify.vue";
+import CommentDelete from "./CommentDelete.vue";
 import Like from "./Like.vue";
 
 export default {
@@ -39,6 +41,7 @@ export default {
     PostDelete,
     CommentCreate,
     CommentModify,
+    CommentDelete,
     Like,
   },
 

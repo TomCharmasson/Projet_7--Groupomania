@@ -1,7 +1,7 @@
 <template>
   <div class="container col-lg-6 mx-auto">
     <form @submit.prevent="updateComment">
-      <input type="textarea" class="form-control form-floating mb-3" placeholder="Commentaire modifié ici..." id="comment" required />
+      <input type="textarea" class="form-control form-floating mb-3" placeholder="Commentaire modifié ici..." id="comment" v-model="comment" required />
 
       <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Modifier le Commentaire</button>
     </form>
@@ -18,12 +18,6 @@ export default {
     };
   },
 
-  created() {
-      // ! recuperer l'id du commentaire 
-    this.comment = this.commentParent;
-    console.log(this.comment.id);
-  },
-
   props: {
     commentParent: {
       type: Object,
@@ -33,10 +27,12 @@ export default {
   
   methods: {
     updateComment() {
+      let commentId = this.commentParent.id;
+      let comment = {
+        message: this.comment,
+      };
       this.axios
-        .put(`/api/comment/${this.comment.id}`, {
-          message: this.comment,
-        })
+        .put(`/api/comment/${commentId}`, comment)
         .then((response) => {
           this.$emit("comment-modified", response.data);
           this.comment = "";
