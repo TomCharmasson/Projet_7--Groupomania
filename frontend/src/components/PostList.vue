@@ -7,7 +7,7 @@
           <span class="nom">{{ post.User.username }}</span> à posté :
         </p>
         <p class="h3">{{ post.message }}</p>
-        <p>écrit à : {{ post.createdAt }}</p>
+        <p>écrit le : {{ getDate(post.createAt) }}</p>
         {{ post.image }} <br />
         <PostModify :postParent="post" />
         <PostDelete :postParent="post" />
@@ -36,6 +36,7 @@ import CommentCreate from "./CommentCreate.vue";
 import CommentModify from "./CommentModify.vue";
 import CommentDelete from "./CommentDelete.vue";
 import Like from "./Like.vue";
+import moment from "moment";
 
 export default {
   name: "PostList",
@@ -59,12 +60,15 @@ export default {
     this.getPosts();
   },
 
-  methods: {    
+  methods: {
     getPosts() {
       this.axios
         .get("/api/post")
         .then((response) => (this.posts = response.data))
         .catch((error) => console.log(error));
+    },
+    getDate(date) {
+      return moment(date).format("MMMM Do YYYY, h:mm:ss a");
     },
   },
 };
