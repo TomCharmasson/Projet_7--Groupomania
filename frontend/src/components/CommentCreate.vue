@@ -14,18 +14,19 @@ export default {
 
   data() {
     return {
-      comment: "",
+      comment: [],
     };
   },
 
+  // Recupération de l'id du post
   created() {
     this.comment = this.postParent;
-    console.log(this.comment);
   },
 
   props: {
     postParent: {
       type: Object,
+      required: true,
     },
   },
 
@@ -33,6 +34,7 @@ export default {
     createComment() {
       const comment = {
         message: this.comment,
+        id: this.postParent.id, 
       };
       this.axios
       .post("/api/comment", comment)

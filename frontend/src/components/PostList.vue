@@ -7,18 +7,20 @@
         {{ post.message }} <br />
         écrit à : {{ post.createdAt }} <br />
         {{ post.image }} <br />
-        <PostModify :postParent="post"/>
-        <PostDelete :postParent="post"/>
-        <Like :postParent="post"/>
+        <PostModify :postParent="post" />
+        <PostDelete :postParent="post" />
+        <Like :postParent="post" />
         {{ post.comments }} <br />
         <hr />
+        <h4>Commentaires :</h4>
         <ul class="list-group">
-          <li class="list-group-item py-3" v-for="(comment,index) in post.Comments" :key="index">
+          <li class="list-group-item py-3" v-for="(comment, index) in post.Comments" :key="index">
             {{ comment.avatar }} / {{ comment.User.username }} à commenté : {{ comment.message }}
+            <CommentModify :commentParent="post.Comments" />
           </li>
         </ul>
         <hr />
-        <CommentCreate :postParent="post.Comments" />
+        <CommentCreate :postParent="post" />
       </li>
     </ul>
   </div>
@@ -28,6 +30,7 @@
 import PostModify from "./PostModify.vue";
 import PostDelete from "./PostDelete.vue";
 import CommentCreate from "./CommentCreate.vue";
+import CommentModify from "./CommentModify.vue";
 import Like from "./Like.vue";
 
 export default {
@@ -35,8 +38,9 @@ export default {
     PostModify,
     PostDelete,
     CommentCreate,
+    CommentModify,
     Like,
-},
+  },
 
   name: "PostList",
   data() {
@@ -47,6 +51,7 @@ export default {
   mounted() {
     this.getPosts();
   },
+
   methods: {
     getPosts() {
       this.axios
@@ -55,7 +60,6 @@ export default {
         .catch((error) => console.log(error));
     },
   },
-  
 };
 </script>
 

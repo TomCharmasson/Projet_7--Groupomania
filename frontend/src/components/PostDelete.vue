@@ -16,10 +16,6 @@ export default {
     };
   },
 
-  created() {
-    this.post = this.postParent;
-  },
-
   props: {
     postParent: {
       type: Object,
@@ -29,8 +25,9 @@ export default {
   
   methods: {
     deletePost() {
+      let postId = this.postParent.id;
       this.axios
-        .delete(`/api/post/${this.post.id}`)
+        .delete(`/api/post/${postId}`)
         .then((response) => {
           this.$emit("post-deleted", response.data);
         })
