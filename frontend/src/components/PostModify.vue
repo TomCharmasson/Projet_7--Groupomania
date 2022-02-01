@@ -1,11 +1,8 @@
 <template>
-  <div class="container col-lg-6 mx-auto">
-    <form @submit.prevent="updatePost">
-      <input type="textarea" class="form-control form-floating mb-3" placeholder="Post ici..." id="post" v-model="post" required />
-
-      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Modifier le Post</button>
+    <form class="d-flex justify-content-center" @submit.prevent="updatePost">
+      <input type="textarea" class="form-control form-floating mx-1" placeholder="Modifié ici..." v-model="post" required />
+      <button class="btn btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
     </form>
-  </div>
 </template>
 
 <script>

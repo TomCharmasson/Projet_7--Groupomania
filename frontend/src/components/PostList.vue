@@ -1,31 +1,35 @@
 <template>
-  <div class="post-list container col-lg-6 mx-auto">
-    <h3>Posts ici 👇</h3>
-    <ul class="list-group">
-      <li class="list-group-item py-3" v-for="(post, index) in posts" :key="index">
-        <p>
-          <span class="nom">{{ post.User.username }}</span> à posté :
-        </p>
-        <p class="h3">{{ post.message }}</p>
-        <p>écrit le : {{ getDate(post.createAt) }}</p>
-        {{ post.image }} <br />
+  <div class="card col-lg-8 mx-auto mb-5" v-for="(post, index) in posts" :key="index">
+    <div class="card-header d-flex justify-content-between">
+      <div>
+        <span class="nom">{{ post.User.username }}</span> à posté :
+      </div>
+      <div>{{ getDate(post.createAt) }}</div>
+    </div>
+    <div class="card-body">
+      <h3 class="card-title my-5">{{ post.message }}</h3>
+      <hr />
+      <div class="d-flex justify-content-center mb-5">
+        <Like :postParent="post" />
         <PostModify :postParent="post" />
         <PostDelete :postParent="post" />
-        <Like :postParent="post" />
-        {{ post.comments }} <br />
-        <hr />
-        <h4>Commentaires :</h4>
-        <ul class="list-group">
-          <li class="list-group-item py-3" v-for="(comment, index) in post.Comments" :key="index">
-            {{ comment.avatar }} / {{ comment.User.username }} à commenté : {{ comment.message }}
+      </div>
+      <div class="list-group">
+        <div class="d-flex list-group-item justify-content-between align-items-center" v-for="(comment, index) in post.Comments" :key="index">
+          <div class="text-start">
+            <span >{{ comment.User.username }} : </span>
+            <h5>{{ comment.message }}</h5>
+          </div>
+          <div class="d-flex">
             <CommentModify :commentParent="comment" />
             <CommentDelete :commentParent="comment" />
-          </li>
-        </ul>
-        <hr />
-        <CommentCreate :postParent="post" />
-      </li>
-    </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+      <CommentCreate :postParent="post" />
+    </div>
   </div>
 </template>
 
@@ -76,7 +80,9 @@ export default {
 
 <style>
 .nom {
-  font-weight: bold;
-  font-size: 1.2em;
+  font-weight: 800;
+}
+.date {
+  font-style: italic;
 }
 </style>

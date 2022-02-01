@@ -1,9 +1,9 @@
 <template>
-  <div class="likes">
-    <button class="btn border" @click="addAlike">👍</button> 
-    <p v-if="likes === 0"> Aucun like 😥</p>
-    <p v-else-if="likes === 1">{{ likes }} like</p>
-    <p v-else>{{ likes }} likes</p>
+  <div class="likes d-flex align-items-center">
+    <button class="btn border" @click="addAlike">👍</button>
+    <div class="mx-2" v-if="likes === 0">Aucun like 😥</div>
+    <div class="mx-2" v-else-if="likes === 1">{{ likes }} like</div>
+    <div class="mx-2" v-else>{{ likes }} likes</div>
   </div>
 </template>
 

@@ -1,11 +1,8 @@
 <template>
-  <div class="container col-lg-6 mx-auto">
-    <form @submit.prevent="updateComment">
-      <input type="textarea" class="form-control form-floating mb-3" placeholder="Commentaire modifié ici..." id="comment" v-model="comment" required />
-
-      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Modifier le Commentaire</button>
+    <form class="d-flex justify-content-between" @submit.prevent="updateComment">
+      <input type="textarea" class="form-control form-control-sm form-floating mx-1" placeholder="Modif. ici..." v-model="comment" required />
+      <button class="btn btn-sm btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
     </form>
-  </div>
 </template>
 
 <script>

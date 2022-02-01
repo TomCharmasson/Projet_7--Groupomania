@@ -1,9 +1,7 @@
 <template>
-  <div class="container col-lg-6 mx-auto">
     <form @submit.prevent="deletePost">
-      <button class="w-100 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Supprimer le Post 🗑</button>
+      <button class="btn btn-secondary text-white" type="submit" value="submit">❌</button>
     </form>
-  </div>
 </template>
 
 <script>
