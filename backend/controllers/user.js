@@ -46,10 +46,7 @@ exports.login = async (req, res, next) => {
             return res.status(401).json({ error: "User or password not found ! ❌ 🙅‍♂️" });
           }
           res.status(200).json({
-            token: jwt.sign(
-              { user: user },
-              "RANDOM_TOKEN_SECRET",
-              { expiresIn: "24h" }),
+            token: jwt.sign({ user: user }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
           });
         })
         .catch((error) => res.status(500).json({ error }));
@@ -72,19 +69,7 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  try {
-    const user = await db.User.findOne({
-      where: { id: req.params.id },
-    });
-    if (user !== null) {
-      res.status(200).json({ user });
-    } else {
-      res.status(400).send({ error: "An error occured" });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "An error occured" });
-  }
+  return getUserById(req.params.id, res);
 };
 
 exports.updateUser = async (req, res, next) => {
@@ -126,4 +111,23 @@ exports.deleteUser = async (req, res, next) => {
     console.log(error);
     return res.status(500).send({ error: "An error occured" });
   }
+};
+
+const getUserById = async (id, res) => {
+  try {
+    const user = await db.User.findOne({
+      where: { id: id },
+    });
+    if (user !== null) {
+      return res.status(200).json({ user });
+    } else {
+      return res.status(400).send({ error: "An error occured" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: "An error occured" });
+  }
+};
+
+exports.getMe = async (req, res, next) => {
+  return getUserById(token.getUserId(req), res);
 };

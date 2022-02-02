@@ -4,8 +4,8 @@
     <ul class="list-group">
       <li class="list-group-item py-3" v-for="(userInfo, index) in user" :key="index">
         <img src="../assets/profile/default-profile.jpg" alt="Photo de profil" width="260" />
-        <h1 class="h1 my-5 fw-bold">Pseudo : {{ userInfo }}</h1>
-        <p class="text-muted">Email:</p>
+        <h1 class="h1 my-5 fw-bold">Pseudo : {{ userInfo.username }}</h1>
+        <p class="text-muted">Email: {{ userInfo.email }}</p>
       </li>
     </ul>
   </div>
@@ -13,30 +13,32 @@
 </template>
 
 <script>
-import Header from "../components/Header.vue";
-import Footer from "../components/Footer.vue";
+  import Header from "../components/Header.vue";
+  import Footer from "../components/Footer.vue";
 
-export default {
-  name: "Profile",
+  export default {
+    name: "Profile",
 
-  components: {
-    Header,
-    Footer,
-  },
+    components: {
+      Header,
+      Footer,
+    },
 
-  data() {
-    return {
-      user: [],
-    };
-  },
+    data() {
+      return {
+        user: [],
+      };
+    },
 
-  mounted() {
-    this.axios
-      .get(`/api/auth/users`)
-      .then((response) => (this.user = response.data))
-      .catch((error) => console.log(error));
-  },
-};
+    // ! Fonction qui récupère les données de l'utilisateur connecté
+
+    mounted() {
+      this.axios
+        .get(`/api/auth/user/me`)
+        .then((response) => (this.user = response.data))
+        .catch((error) => console.log(error));
+    },
+  };
 </script>
 
 <style></style>

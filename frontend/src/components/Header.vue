@@ -1,7 +1,7 @@
 <template>
   <header>
-    <ul class="nav justify-content-center align-items-center py-3 my-5 nav-bar-style">
-    <!-- <img src="../assets/logos/icon.png" class="img-fluid mx-auto" alt="Logo Groupomania" width="50" /> -->
+    <ul class="nav justify-content-center align-items-center py-3 mb-5 nav-bar-style">
+      <!-- <img src="../assets/logos/icon.png" class="img-fluid mx-auto" alt="Logo Groupomania" width="50" /> -->
       <li class="nav-item d-flex">
         <img src="../assets/profile/default-profile.jpg" alt="mdo" class="rounded-circle" width="32" height="32" />
         <router-link class="nav-link" to="/profile">Mon Profil</router-link>
