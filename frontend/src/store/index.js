@@ -10,9 +10,6 @@ const store = createStore({
     getToken(state) {
       return state.token;
     },
-    allPosts(state) {
-      return state.posts;
-    },
   },
   actions: {
     setToken(context, value) {

@@ -31,7 +31,6 @@
       this.post = this.postParent;
     },
 
-    // TODO : Add a property to get the number of likes
     methods: {
       likeDislikeThis() {
         this.axios

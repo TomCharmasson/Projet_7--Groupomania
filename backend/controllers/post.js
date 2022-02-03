@@ -4,7 +4,8 @@ const token = require("../middleware/auth");
 
 exports.getAllPosts = async (req, res) => {
   try {
-    const posts = await db.Post.findAll({ // findAll permet de récupérer toutes les données de la table Post
+    const posts = await db.Post.findAll({
+      // findAll permet de récupérer toutes les données de la table Post
       attributes: ["id", "message", "image", "createdAt"], // on récupère les champs id, message, image et createdAt
       order: [["createdAt", "DESC"]],
       include: [
@@ -88,7 +89,6 @@ exports.createPost = async (req, res) => {
       if (req.file) {
         imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
       }
-
       const post = await db.Post.create({
         message: req.body.message,
         image: imageUrl,
@@ -149,4 +149,3 @@ exports.updatePost = async (req, res) => {
     return res.status(500).send({ error: "An error occured" });
   }
 };
-
