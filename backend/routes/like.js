@@ -8,7 +8,7 @@ const auth = require("../middleware/auth");
 const likeCtrl = require("../controllers/like");
 
 // Routes
-router.post("/like/:id", auth, likeCtrl.likePost);
+router.post("/", auth, likeCtrl.likePost);
 
 
 module.exports = router;

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
+const token = require("../middleware/auth");
 
 // Inscription d'un utilisateur
 exports.signup = async (req, res, next) => {
@@ -31,7 +32,6 @@ exports.signup = async (req, res, next) => {
 
 // Connexion d'un utilisateur
 exports.login = async (req, res, next) => {
-  console.log(req.body);
   await db.User.findOne({
     where: { email: req.body.email },
   })
@@ -69,31 +69,22 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  try {
-    const user = await db.User.findOne({
-      where: { id: req.params.id },
-    });
-    if (user !== null) {
-      res.status(200).json({ user });
-    } else {
-      res.status(400).send({ error: "An error occured" });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "An error occured" });
-  }
+  return getUserById(req.params.id, res);
 };
 
 exports.updateUser = async (req, res, next) => {
   try {
     const user = await db.User.findOne({
-      where: { id: req.params.id },
+      where: { id: token.getUserId(req) },
     });
     if (user !== null) {
+      imageUrl = null;
+      if (req.file) {
+        imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+      }
       await user.update({
-        username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
+        avatar: imageUrl,
       });
       res.status(200).send({ message: "User updated" });
     } else {
@@ -120,4 +111,23 @@ exports.deleteUser = async (req, res, next) => {
     console.log(error);
     return res.status(500).send({ error: "An error occured" });
   }
+};
+
+const getUserById = async (id, res) => {
+  try {
+    const user = await db.User.findOne({
+      where: { id: id },
+    });
+    if (user !== null) {
+      return res.status(200).json({ user });
+    } else {
+      return res.status(400).send({ error: "An error occured" });
+    }
+  } catch (error) {
+    return res.status(500).send({ error: "An error occured" });
+  }
+};
+
+exports.getMe = async (req, res, next) => {
+  return getUserById(token.getUserId(req), res);
 };

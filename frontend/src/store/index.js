@@ -1,20 +1,13 @@
 import { createStore } from "vuex";
 
 const store = createStore({
-  modules: {},
-  state() {
-    return {
-      token: null,
-    };
-  },
-  // Setters
-  mutations: {
-    setToken(state, value) {
-      state.token = value;
-    },
+  state: {
+    // Corespond au data du store
+    token: null,
   },
   getters: {
-    getToken: (state) => {
+    // Corespond au computed du store
+    getToken(state) {
       return state.token;
     },
   },
@@ -24,6 +17,13 @@ const store = createStore({
       context.commit("setToken", value);
     },
   },
+  mutations: {
+    // Corespond au methods du store
+    setToken(state, value) {
+      state.token = value;
+    },
+  },
+  modules: {},
 });
 
 export default store;

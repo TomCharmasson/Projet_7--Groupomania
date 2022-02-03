@@ -5,7 +5,8 @@ const token = require("../middleware/auth");
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await db.Post.findAll({
-      attributes: ["id", "message", "image", "createdAt"],
+      // findAll permet de récupérer toutes les données de la table Post
+      attributes: ["id", "message", "image", "createdAt"], // on récupère les champs id, message, image et createdAt
       order: [["createdAt", "DESC"]],
       include: [
         {
@@ -78,7 +79,6 @@ exports.getPost = async (req, res) => {
 
 exports.createPost = async (req, res) => {
   const userId = token.getUserId(req);
-  console.log(userId);
   let imageUrl;
   try {
     const user = await db.User.findOne({
@@ -89,7 +89,6 @@ exports.createPost = async (req, res) => {
       if (req.file) {
         imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
       }
-
       const post = await db.Post.create({
         message: req.body.message,
         image: imageUrl,
@@ -133,8 +132,13 @@ exports.updatePost = async (req, res) => {
       },
     });
     if (post.UserId === token.getUserId(req)) {
+      imageUrl = null;
+      if (req.file) {
+        imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+      }
       await post.update({
         message: req.body.message,
+        image: imageUrl,
       });
       res.status(200).send({ message: "Post updated" });
     } else {
@@ -145,4 +149,3 @@ exports.updatePost = async (req, res) => {
     return res.status(500).send({ error: "An error occured" });
   }
 };
-
