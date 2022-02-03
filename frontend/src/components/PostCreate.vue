@@ -19,17 +19,19 @@
       };
     },
 
+    // TODO : Ajouter la possibilté d'upload l'image
+
     methods: {
-      onSelect(e) {
-        this.file = e.target.files[0];
+      onSelect(event) {
+        this.file = event.target.files[0];
       },
       async createPost() {
         const formData = new FormData();
-        formData.append("file", this.file);
+        formData.append("file", this.file, this.file.name);
         this.axios
-          .post("/api/post", {
+          .post("/api/post", formData, {
             message: this.message,
-            image: this.file,
+            image: this.file.name,
           })
           .then((response) => {
             this.$emit("post-submitted", response.data);

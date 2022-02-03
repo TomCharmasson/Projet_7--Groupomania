@@ -27,6 +27,8 @@
       this.post = this.postParent;
     },
 
+    // TODO : Ajouter la possibilté de modifier l'image
+
     methods: {
       updatePost() {
         this.post.message = this.message;

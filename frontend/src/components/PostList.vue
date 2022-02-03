@@ -67,7 +67,6 @@
       this.getPosts();
     },
 
-    // ! Utiliser VueX pour rafraichir la liste des posts
     methods: {
       getPosts() {
         this.axios
