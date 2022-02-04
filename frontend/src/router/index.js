@@ -9,56 +9,63 @@ import ForgottenPassword from "../views/ForgottenPassword.vue";
 import Profile from "../views/Profile.vue";
 import NotFound from "../views/NotFound.vue";
 
-
 const routes = [
+  {
+    path: "/",
+    name: "Login",
+    component: Login,
+    meta: {
+      title: "Se connecter",
+    },
+  },
   {
     path: "/home",
     name: "Home",
     component: Home,
     meta: {
-      title : "Accueil"
-    }
+      title: "Accueil",
+    },
   },
   {
     path: "/signup",
     name: "Signup",
     component: Signup,
     meta: {
-      title : "S'inscrire"
-    }
+      title: "S'inscrire",
+    },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
     meta: {
-      title : "Se connecter"
-    }
+      title: "Se connecter",
+    },
   },
   {
     path: "/forgotten-password",
     name: "ForgottenPassword",
     component: ForgottenPassword,
     meta: {
-      title : "Mot de passe oublié"
-    }
+      title: "Mot de passe oublié",
+    },
   },
   {
     path: "/profile",
     name: "Profile",
     component: Profile,
     meta: {
-      title : "Profil"
-    }
+      title: "Mon Profil",
+    },
   },
   {
     path: "/:pathMatch(.*)",
     name: "NotFound",
     component: NotFound,
     meta: {
-      title : "404 - Page non trouvée"
-    }
-  }
+      title: "404 - Page non trouvée",
+    },
+  },
 ];
 
 const router = createRouter({

@@ -35,35 +35,36 @@
 </template>
 
 <script>
-export default {
-  name: "Login",
-  data() {
-    return {
-      email: "",
-      password: "",
-      remindme: true,
-    };
-  },
-  methods: {
-    login() {
-      this.axios
-        .post("/api/auth/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((response) => {
-          const token = response.data.token;
-          this.$store.dispatch("setToken", token);
-        })
-        .then(async () => {
-          this.$router.push({ name: "Home" });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+  export default {
+    name: "Login",
+    data() {
+      return {
+        email: "",
+        password: "",
+        remindme: true,
+      };
     },
-  },
-};
+    methods: {
+      login() {
+        this.axios
+          .post("/api/auth/login", {
+            email: this.email,
+            password: this.password,
+          })
+          .then((response) => {
+            const token = response.data.token;
+            this.$store.dispatch("setToken", token);
+            this.$store.dispatch("setUser", response.data.user);
+          })
+          .then(async () => {
+            this.$router.push({ name: "Home" });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    },
+  };
 </script>
 
 <style lang="scss"></style>

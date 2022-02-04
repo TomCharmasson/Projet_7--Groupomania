@@ -20,17 +20,16 @@
     },
 
     methods: {
-      onSelect(e) {
-        this.file = e.target.files[0];
+      onSelect(event) {
+        this.file = event.target.files[0];
       },
+
       async createPost() {
         const formData = new FormData();
-        formData.append("file", this.file);
+        formData.append("image", this.file);
+        formData.append("message", this.message);
         this.axios
-          .post("/api/post", {
-            message: this.message,
-            image: this.file,
-          })
+          .post("/api/post", formData)
           .then((response) => {
             this.$emit("post-submitted", response.data);
             this.message = "";

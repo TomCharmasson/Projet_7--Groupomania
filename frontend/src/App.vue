@@ -1,7 +1,5 @@
 <template>
   <div id="nav">
-    <router-link to="/login">Se Connecter</router-link> | <router-link to="/signup">S'inscrire</router-link> | <router-link to="/forgotten-password">Mot de passe Oublié</router-link> |
-    <router-link to="/home">Home</router-link>
     <router-view></router-view>
   </div>
 </template>

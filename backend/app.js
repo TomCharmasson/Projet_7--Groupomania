@@ -2,7 +2,8 @@
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet"); // Sécuriser l'app Express en définissant divers en-têtes HTTP
-const { sequelize } = require("./models");  // ORM qui permet de mapper les classes métier avec les tables d'un SGBDR en JavaScript
+const { sequelize } = require("./models"); // ORM qui permet de mapper les classes métier avec les tables d'un SGBDR en JavaScript
+const cors = require("cors"); // Permet de définir des en-têtes HTTP pour les requêtes HTTP
 
 // Import routes
 const userRoutes = require("./routes/user");
@@ -17,10 +18,13 @@ app.use(express.json());
 
 app.use(helmet());
 
+app.use(cors());
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
   next();
 });
 
