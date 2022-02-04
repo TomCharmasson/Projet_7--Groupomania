@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
 const token = require("../middleware/auth");
+const pathImage = `/images/profile/`;
 
 // Inscription d'un utilisateur
 exports.signup = async (req, res, next) => {
@@ -45,8 +46,10 @@ exports.login = async (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "User or password not found ! ❌ 🙅‍♂️" });
           }
+          user.avatar = `${req.protocol}://${req.get("host")}${pathImage}${user.avatar}`;
           res.status(200).json({
             token: jwt.sign({ user: user }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+            user: user,
           });
         })
         .catch((error) => res.status(500).json({ error }));
@@ -69,7 +72,7 @@ exports.getAllUsers = async (req, res, next) => {
 };
 
 exports.getUser = async (req, res, next) => {
-  return getUserById(req.params.id, res);
+  return getUserById(req.params.id, req, res);
 };
 
 exports.updateUser = async (req, res, next) => {
@@ -80,10 +83,9 @@ exports.updateUser = async (req, res, next) => {
     if (user !== null) {
       imageUrl = null;
       if (req.file) {
-        imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+        imageUrl = `${req.protocol}://${req.get("host")}/images/profile/${req.file.filename}`;
       }
       await user.update({
-        email: req.body.email,
         avatar: imageUrl,
       });
       res.status(200).send({ message: "User updated" });
@@ -113,12 +115,13 @@ exports.deleteUser = async (req, res, next) => {
   }
 };
 
-const getUserById = async (id, res) => {
+const getUserById = async (id, req, res) => {
   try {
     const user = await db.User.findOne({
       where: { id: id },
     });
     if (user !== null) {
+      user.avatar = `${req.protocol}://${req.get("host")}${pathImage}${user.avatar}`;
       return res.status(200).json({ user });
     } else {
       return res.status(400).send({ error: "An error occured" });
@@ -129,5 +132,5 @@ const getUserById = async (id, res) => {
 };
 
 exports.getMe = async (req, res, next) => {
-  return getUserById(token.getUserId(req), res);
+  return getUserById(token.getUserId(req), req, res);
 };

@@ -55,7 +55,7 @@ const routes = [
     name: "Profile",
     component: Profile,
     meta: {
-      title: "Profil",
+      title: "Mon Profil",
     },
   },
   {

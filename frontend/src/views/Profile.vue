@@ -1,16 +1,16 @@
 <template>
   <Header />
   <div class="profile">
+    <h1>Mon Profil</h1>
     <div class="py-3" v-for="(userInfo, index) in user" :key="index">
-      <img src="../assets/profile/default-profile.jpg" class="rounded-circle mb-3" alt="Photo de profil" width="260" />
-      <div>
-        <label for="avatar">Changer l'avatar : </label>
+      <img :src="userInfo.avatar" class="rounded-circle mb-3" alt="Photo de profil" width="260" />
+      <div class="container col-lg-6 mx-auto">
+        <form @submit.prevent="modifyAvatar" enctype="multipart/form-data">
+          <input type="file" ref="file" @change="onSelect" class="form-control form-floating mb-3" required />
+          <button class="w-50 btn btn-lg btn-primary text-white" type="submit" value="submit">Uploader l'avatar</button>
+        </form>
       </div>
-      <div>
-        <input type="file" id="avatar" name="avatar" />
-      </div>
-      <h1 class="h1 my-5 fw-bold">Pseudo : {{ userInfo.username }}</h1>
-      <p class="text-muted">Email: {{ userInfo.email }}</p>
+      <h3 class="my-5 fw-bold">Pseudo : {{ userInfo.username }}</h3>
       <p class="text-muted">Date de création: {{ userInfo.createdAt }}</p>
     </div>
   </div>
@@ -22,7 +22,7 @@
   import Footer from "../components/Footer.vue";
 
   export default {
-    name: "Profile",
+    name: "ProfileMe",
 
     components: {
       Header,
@@ -32,6 +32,7 @@
     data() {
       return {
         user: [],
+        file: null,
       };
     },
 
@@ -40,6 +41,24 @@
         .get(`/api/auth/user/me`)
         .then((response) => (this.user = response.data))
         .catch((error) => console.log(error));
+    },
+
+    methods: {
+      onSelect(event) {
+        this.file = event.target.files[0];
+      },
+
+      async modifyAvatar() {
+        const formData = new FormData();
+        formData.append("avatar", this.file);
+        this.axios
+          .put(`/api/auth/users/${this.user.user.id}`, formData)
+          .then((response) => {
+            this.$emit("post-submitted", response.data);
+            this.file = null;
+          })
+          .catch((error) => console.log(error));
+      },
     },
   };
 </script>

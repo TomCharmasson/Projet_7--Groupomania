@@ -3,7 +3,7 @@
     <!-- <img src="../assets/logos/icon-left-font.png" class="img-fluid mx-auto mt-3" alt="Logo Groupomania" width="400" /> -->
     <ul class="nav justify-content-center align-items-center py-3 mb-5 nav-bar-style">
       <li class="nav-item px-1">
-        <img src="../assets/profile/default-profile.jpg" alt="Image de profile" class="rounded-circle" width="40" height="40" />
+        <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
       </li>
       <li class="nav-item px-1">
         <router-link class="nav-link" to="/profile">Mon Profil</router-link>
@@ -21,6 +21,16 @@
 <script>
   export default {
     name: "Header",
+
+    data() {
+      return {
+        user: null,
+      };
+    },
+
+    created() {
+      this.user = this.$store.getters.getUser;
+    },
   };
 </script>
 

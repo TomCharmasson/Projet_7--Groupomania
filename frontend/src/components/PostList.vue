@@ -3,7 +3,9 @@
     <div class="card col-lg-8 mx-auto mb-5" v-for="post in posts" :key="post.id">
       <div class="card-header d-flex justify-content-between">
         <div>
-          <span class="nom">{{ post.User.username }}</span> à posté :
+          <img :src="post.User.avatar" class="rounded-circle mr-3" alt="Photo de profil" width="50" />
+          <span class="nom mx-2">{{ post.User.username }}</span
+          >à posté :
         </div>
         <div>{{ getDate(post.createdAt) }}</div>
       </div>
