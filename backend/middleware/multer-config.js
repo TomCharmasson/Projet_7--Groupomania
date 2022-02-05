@@ -7,9 +7,23 @@ const MIME_TYPES = {
   "image/png": "png",
 };
 
+// storage: multer.diskStorage({
+//   destination: (req, file, callback) => {
+//     let type = req.params.type;
+//     console.log(type);
+//     let path = `./uploads/${type}`;
+//     fs.mkdirsSync(path);
+//     callback(null, path);
+//   },
+
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "images");
+    if (req.path.match(new RegExp("/user"))) {
+      // create a regexp and check if it matches
+      callback(null, "images/profile");
+    } else {
+      callback(null, "images");
+    }
   },
   filename: (req, file, callback) => {
     const fileName = file.originalname.split(" ").join("_").substring(0, file.originalname.lastIndexOf("."));

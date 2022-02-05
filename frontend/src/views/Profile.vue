@@ -50,11 +50,11 @@
 
       async modifyAvatar() {
         const formData = new FormData();
-        formData.append("avatar", this.file);
+        formData.append("image", this.file);
         this.axios
-          .put(`/api/auth/users/${this.user.user.id}`, formData)
+          .put(`/api/auth/user/me`, formData)
           .then((response) => {
-            this.$emit("post-submitted", response.data);
+            this.$store.dispatch("setUser", response.data.user);
             this.file = null;
           })
           .catch((error) => console.log(error));
