@@ -12,7 +12,7 @@
           </form>
         </div>
         <h3 class="my-5 fw-bold">Pseudo : {{ userInfo.username }}</h3>
-        <p class="text-muted">Date de création: {{ userInfo.createdAt }}</p>
+        <p class="text-muted">Date de création : {{ getDate(userInfo.createdAt) }}</p>
       </div>
     </div>
     <Footer />
@@ -22,6 +22,7 @@
 <script>
   import Header from "../components/Header.vue";
   import Footer from "../components/Footer.vue";
+  import moment from "moment";
 
   export default {
     name: "ProfileMe",
@@ -65,6 +66,10 @@
             this.getProfile();
           })
           .catch((error) => console.log(error));
+      },
+
+      getDate(date) {
+        return moment(date).locale("fr").format("llll");
       },
     },
   };

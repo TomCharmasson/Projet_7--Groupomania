@@ -2,7 +2,7 @@
   <section>
     <PostCreate @post-submitted="getPosts" />
     <div class="card col-lg-8 mx-auto mb-5" v-for="post in posts" :key="post.id">
-      <div class="card-header d-flex justify-content-between">
+      <div class="card-header d-flex justify-content-between align-items-center">
         <div>
           <img :src="post.User.avatar" class="rounded-circle mr-3" alt="Photo de profil" width="50" />
           <span class="nom mx-2">{{ post.User.username }}</span
@@ -80,7 +80,7 @@
           .catch((error) => console.log(error));
       },
       getDate(date) {
-        return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+        return moment(date).locale("fr").format("llll");
       },
     },
   };
