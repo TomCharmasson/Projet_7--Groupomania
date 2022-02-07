@@ -1,5 +1,6 @@
 <template>
   <section>
+    <PostCreate @post-submitted="getPosts" />
     <div class="card col-lg-8 mx-auto mb-5" v-for="post in posts" :key="post.id">
       <div class="card-header d-flex justify-content-between">
         <div>
@@ -14,9 +15,9 @@
         <h3 class="card-title my-5">{{ post.message }}</h3>
         <hr />
         <div class="d-flex justify-content-center mb-5">
-          <Like :postParent="post" />
-          <PostModify :postParent="post" />
-          <PostDelete :postParent="post" />
+          <Like @update-likes="getPosts" :postParent="post" />
+          <PostModify @post-modified="getPosts" :postParent="post" />
+          <PostDelete @post-deleted="getPosts" :postParent="post" />
         </div>
         <div class="list-group">
           <div class="d-flex list-group-item justify-content-between align-items-center" v-for="(comment, index) in post.Comments" :key="index">
@@ -25,20 +26,21 @@
               <h5>{{ comment.message }}</h5>
             </div>
             <div class="d-flex">
-              <CommentModify :commentParent="comment" />
-              <CommentDelete :commentParent="comment" />
+              <CommentModify @comment-modified="getPosts" :commentParent="comment" />
+              <CommentDelete @comment-deleted="getPosts" :commentParent="comment" />
             </div>
           </div>
         </div>
       </div>
       <div class="card-footer text-muted">
-        <CommentCreate :postParent="post" />
+        <CommentCreate @comment-submitted="getPosts" :postParent="post" />
       </div>
     </div>
   </section>
 </template>
 
 <script>
+  import PostCreate from "./PostCreate.vue";
   import PostModify from "./PostModify.vue";
   import PostDelete from "./PostDelete.vue";
   import CommentCreate from "./CommentCreate.vue";
@@ -51,6 +53,7 @@
     name: "PostList",
 
     components: {
+      PostCreate,
       PostModify,
       PostDelete,
       CommentCreate,

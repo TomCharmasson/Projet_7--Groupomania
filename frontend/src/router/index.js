@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import store from "../store";
 
 // Routes to the different pages
 
@@ -12,11 +13,7 @@ import NotFound from "../views/NotFound.vue";
 const routes = [
   {
     path: "/",
-    name: "Login",
-    component: Login,
-    meta: {
-      title: "Se connecter",
-    },
+    redirect: "/login",
   },
   {
     path: "/home",
@@ -71,6 +68,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name !== "Login" && to.name !== "Signup") {
+    const token = store.getters.getToken;
+    if (!token) {
+      next("/login");
+    }
+  }
+  next();
 });
 
 router.afterEach((to) => {

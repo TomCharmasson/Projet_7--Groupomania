@@ -1,19 +1,23 @@
 <template>
   <header>
-    <!-- <img src="../assets/logos/icon-left-font.png" class="img-fluid mx-auto mt-3" alt="Logo Groupomania" width="400" /> -->
-    <ul class="nav justify-content-center align-items-center py-3 mb-5 nav-bar-style">
-      <li class="nav-item px-1">
-        <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
-      </li>
-      <li class="nav-item px-1">
-        <router-link class="nav-link" to="/profile">Mon Profil</router-link>
-      </li>
-      <li class="nav-item px-1">
-        <router-link class="nav-link" to="/home">Fil d'actualité</router-link>
-      </li>
-      <li class="nav-item px-1">
-        <router-link class="nav-link" to="/login">Se Déconnecter</router-link>
-      </li>
+    <ul class="nav justify-content-between align-items-center p-3 mb-5 nav-bar-style">
+      <div>
+        <img src="../assets/logos/icon-left-font.png" alt="Logo Groupomania" width="300" />
+      </div>
+      <div class="d-flex align-items-center">
+        <li class="nav-item px-1">
+          <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
+        </li>
+        <li class="nav-item px-1">
+          <router-link class="nav-link" to="/profile">Mon Profil</router-link>
+        </li>
+        <li class="nav-item px-1">
+          <router-link class="nav-link" to="/home">Fil d'actualité</router-link>
+        </li>
+        <li class="nav-item px-1">
+          <router-link class="nav-link" to="/login">Se Déconnecter</router-link>
+        </li>
+      </div>
     </ul>
   </header>
 </template>
@@ -52,8 +56,8 @@
   }
 
   .nav-bar-style {
-    border-bottom: 2px solid black;
-    border-radius: 0px 0px 10px 10px;
+    -webkit-box-shadow: 0px 5px 10px 0px #ffd7d7;
+    box-shadow: 0px 5px 10px 0px #ffd7d7;
   }
 
   .rounded-circle {

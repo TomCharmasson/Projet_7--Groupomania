@@ -46,7 +46,6 @@ exports.login = async (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "User or password not found ! ❌ 🙅‍♂️" });
           }
-          user.avatar = `${req.protocol}://${req.get("host")}${pathImage}${user.avatar}`;
           res.status(200).json({
             token: jwt.sign({ user: user }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
             user: user,
@@ -76,26 +75,7 @@ exports.getUser = async (req, res, next) => {
 };
 
 exports.updateUser = async (req, res, next) => {
-  try {
-    const user = await db.User.findOne({
-      where: { id: token.getUserId(req) },
-    });
-    if (user !== null) {
-      imageUrl = null;
-      if (req.file) {
-        imageUrl = `${req.protocol}://${req.get("host")}/images/profile/${req.file.filename}`;
-      }
-      await user.update({
-        avatar: imageUrl,
-      });
-      res.status(200).send({ message: "User updated" });
-    } else {
-      res.status(400).send({ error: "An error occured" });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send({ error: "An error occured" });
-  }
+  return updateUser(req.params.id, req, res, next);
 };
 
 exports.deleteUser = async (req, res, next) => {
@@ -121,7 +101,6 @@ const getUserById = async (id, req, res) => {
       where: { id: id },
     });
     if (user !== null) {
-      user.avatar = `${req.protocol}://${req.get("host")}${pathImage}${user.avatar}`;
       return res.status(200).json({ user });
     } else {
       return res.status(400).send({ error: "An error occured" });
@@ -131,6 +110,33 @@ const getUserById = async (id, req, res) => {
   }
 };
 
+const updateUser = async (id, req, res, next) => {
+  try {
+    const user = await db.User.findOne({
+      where: { id: id },
+    });
+    if (user !== null) {
+      imageUrl = null;
+      if (req.file) {
+        imageUrl = `${req.protocol}://${req.get("host")}/images/profile/${req.file.filename}`;
+      }
+      await user.update({
+        avatar: imageUrl,
+      });
+      res.status(200).send({ message: "User updated", user: user });
+    } else {
+      res.status(400).send({ error: "An error occured" });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send({ error: "An error occured" });
+  }
+};
+
 exports.getMe = async (req, res, next) => {
   return getUserById(token.getUserId(req), req, res);
+};
+
+exports.updateMe = async (req, res, next) => {
+  return updateUser(token.getUserId(req), req, res, next);
 };

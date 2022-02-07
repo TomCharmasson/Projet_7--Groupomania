@@ -38,6 +38,7 @@
             id: this.post.id,
           })
           .then((response) => {
+            this.$emit("update-likes", response.data);
             this.likes = response.data.likes;
           });
       },
