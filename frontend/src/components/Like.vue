@@ -40,6 +40,7 @@
           .then((response) => {
             this.$emit("update-likes", response.data);
             this.likes = response.data.likes;
+            console.log(response.data.likes);
           });
       },
     },

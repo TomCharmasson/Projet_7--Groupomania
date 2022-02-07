@@ -34,7 +34,12 @@ exports.likePost = async (req, res) => {
       res.status(200).send({ message: "Post liked", likes: likes.length });
     } else {
       await like.destroy();
-      res.status(200).send({ message: "Post unliked" });
+      const likes = await db.Like.findAll({
+        where: {
+          PostId: post.id,
+        },
+      });
+      res.status(200).send({ message: "Post unliked", likes: likes.length });
     }
   } catch (error) {
     console.log(error);

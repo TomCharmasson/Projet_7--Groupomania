@@ -38,7 +38,9 @@
 
       async updatePost() {
         const formData = new FormData();
-        formData.append("image", this.file);
+        if (this.file !== null) {
+          formData.append("image", this.file);
+        }
         formData.append("message", this.message);
         this.axios
           .put(`/api/post/${this.post.id}`, formData)

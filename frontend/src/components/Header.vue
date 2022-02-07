@@ -1,25 +1,39 @@
 <template>
-  <header>
-    <ul class="nav justify-content-between align-items-center p-3 mb-5 nav-bar-style">
+  <nav class="navbar navbar-expand-xl navbar-light bg-light mb-5 nav-bar-style">
+    <div class="container-fluid">
       <div>
-        <img src="../assets/logos/icon-left-font.png" class="img-fluid" alt="Logo Groupomania" width="300" />
+        <img src="../assets/logos/icon-left-font.png" class="img-fluid" alt="Logo Groupomania" width="240" />
       </div>
-      <div class="d-flex align-items-center">
-        <li class="nav-item px-1">
-          <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
-        </li>
-        <li class="nav-item px-1">
-          <router-link class="nav-link" to="/profile">Mon Profil</router-link>
-        </li>
-        <li class="nav-item px-1">
-          <router-link class="nav-link" to="/home">Fil d'actualité</router-link>
-        </li>
-        <li class="nav-item px-1">
-          <router-link class="nav-link" to="/login">Se Déconnecter</router-link>
-        </li>
+      <button
+        class="navbar-toggler collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarsExample06"
+        aria-controls="navbarsExample06"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse" id="navbarsExample06" style="">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+          <li class="nav-item p-1">
+            <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
+          </li>
+          <li class="nav-item px-1">
+            <router-link class="nav-link" to="/profile">Mon Profil</router-link>
+          </li>
+          <li class="nav-item px-1">
+            <router-link class="nav-link" to="/home">Fil d'actualité</router-link>
+          </li>
+          <li class="nav-item px-1">
+            <router-link class="nav-link" @click="disconnect" to="/login">Se Déconnecter</router-link>
+          </li>
+        </ul>
       </div>
-    </ul>
-  </header>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -34,6 +48,14 @@
 
     created() {
       this.user = this.$store.getters.getUser;
+    },
+
+    methods: {
+      disconnect() {
+        this.$store.dispatch("setToken", null);
+        this.$store.dispatch("setUser", null);
+        this.$router.push({ name: "Login" });
+      },
     },
   };
 </script>
@@ -56,8 +78,8 @@
   }
 
   .nav-bar-style {
-    -webkit-box-shadow: 0px 5px 10px 0px #ffd7d7;
-    box-shadow: 0px 5px 10px 0px #ffd7d7;
+    -webkit-box-shadow: 0px 1px 10px 0px rgb(100, 100, 100);
+    box-shadow: 0px 1px 10px 0px rgb(100, 100, 100);
   }
 
   .rounded-circle {
