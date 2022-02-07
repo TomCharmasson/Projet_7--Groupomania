@@ -3,16 +3,16 @@
     <Header />
     <div class="profile">
       <h1>Mon Profil</h1>
-      <div class="py-3" v-for="(userInfo, index) in user" :key="index">
-        <img :src="userInfo.avatar" class="rounded-circle mb-3" alt="Photo de profil" width="260" />
+      <div class="py-3">
+        <img :src="user.avatar" class="img-fluid rounded-circle mb-3" alt="Photo de profil" width="260" />
         <div class="container col-lg-6 mx-auto">
           <form @submit.prevent="modifyAvatar" enctype="multipart/form-data">
             <input type="file" ref="file" @change="onSelect" class="form-control form-floating mb-3" required />
             <button class="w-50 btn btn-lg btn-primary text-white" type="submit" value="submit">Uploader l'avatar</button>
           </form>
         </div>
-        <h3 class="my-5 fw-bold">Pseudo : {{ userInfo.username }}</h3>
-        <p class="text-muted">Date de création : {{ getDate(userInfo.createdAt) }}</p>
+        <h3 class="my-5 fw-bold">Pseudo : {{ user.username }}</h3>
+        <p class="text-muted">Date de création : {{ getDate(user.createdAt) }}</p>
       </div>
     </div>
     <Footer />
@@ -34,12 +34,12 @@
 
     data() {
       return {
-        user: [],
+        user: null,
         file: null,
       };
     },
 
-    mounted() {
+    created() {
       this.getProfile();
     },
 
@@ -47,7 +47,7 @@
       getProfile() {
         this.axios
           .get(`/api/auth/user/me`)
-          .then((response) => (this.user = response.data))
+          .then((response) => (this.user = response.data.user))
           .catch((error) => console.log(error));
       },
 
@@ -63,7 +63,7 @@
           .then((response) => {
             this.$store.dispatch("setUser", response.data.user);
             this.file = null;
-            this.getProfile();
+            this.user = response.data.user;
           })
           .catch((error) => console.log(error));
       },

@@ -21,8 +21,14 @@ exports.signup = async (req, res, next) => {
         email: req.body.email,
         password: hash,
         admin: false,
+        avatar: `${req.protocol}://${req.get("host")}/images/profile/default-profile.jpg`,
       })
-        .then(() => res.status(201).json({ message: "User created ! ✅ 👌" }))
+        .then((newUser) =>
+          res.status(200).json({
+            token: jwt.sign({ user: newUser }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
+            user: newUser,
+          })
+        )
         .catch((error) => res.status(400).json({ error }));
     }
   } catch (error) {

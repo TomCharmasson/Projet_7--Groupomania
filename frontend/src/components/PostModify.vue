@@ -1,5 +1,6 @@
 <template>
-  <form class="d-flex justify-content-center" @submit.prevent="updatePost">
+  <button class="btn btn-primary text-white mx-1" @click="hideModifyPost = !hideModifyPost">Modifier ➡️</button>
+  <form v-if="!hideModifyPost" class="d-flex justify-content-center" @submit.prevent="updatePost">
     <input type="textarea" class="form-control form-floating mx-1" placeholder="Modifié ici..." v-model="message" required />
     <input type="file" ref="file" @change="onSelect" class="form-control form-floating mx-1" />
     <button class="btn btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
@@ -15,6 +16,7 @@
         post: null,
         message: "",
         file: null,
+        hideModifyPost: true,
       };
     },
 
@@ -36,7 +38,9 @@
 
       async updatePost() {
         const formData = new FormData();
-        formData.append("image", this.file);
+        if (this.file !== null) {
+          formData.append("image", this.file);
+        }
         formData.append("message", this.message);
         this.axios
           .put(`/api/post/${this.post.id}`, formData)
@@ -46,6 +50,10 @@
             this.file = null;
           })
           .catch((error) => console.log(error));
+      },
+      hidePostModify() {
+        this.hideModifyPost = true;
+        this.$emit("hide-modify-post");
       },
     },
   };

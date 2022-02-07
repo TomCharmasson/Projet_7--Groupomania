@@ -28,8 +28,6 @@
 </template>
 
 <script>
-  import store from "../store";
-
   export default {
     name: "Signup",
     data() {
@@ -49,10 +47,12 @@
           })
           .then((response) => {
             const token = response.data.token;
-            store.dispatch("setToken", token);
+            this.$store.dispatch("setToken", token);
             this.$store.dispatch("setUser", response.data.user);
+            console.log(response.data.user);
           })
           .then(async () => {
+            console.log("ok");
             this.$router.push({ name: "Home" });
           })
           .catch((error) => {

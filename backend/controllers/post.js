@@ -138,7 +138,7 @@ exports.updatePost = async (req, res) => {
       }
       await post.update({
         message: req.body.message,
-        image: imageUrl,
+        image: imageUrl === null ? post.image : imageUrl,
       });
       res.status(200).send({ message: "Post updated" });
     } else {
