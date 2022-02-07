@@ -2,7 +2,7 @@
   <header>
     <ul class="nav justify-content-between align-items-center p-3 mb-5 nav-bar-style">
       <div>
-        <img src="../assets/logos/icon-left-font.png" alt="Logo Groupomania" width="300" />
+        <img src="../assets/logos/icon-left-font.png" class="img-fluid" alt="Logo Groupomania" width="300" />
       </div>
       <div class="d-flex align-items-center">
         <li class="nav-item px-1">

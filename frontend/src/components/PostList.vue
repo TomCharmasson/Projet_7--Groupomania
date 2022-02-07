@@ -12,14 +12,16 @@
       </div>
       <div class="card-body">
         <img class="card-img-top" :src="post.image" alt="Image du post" />
-        <h3 class="card-title my-5">{{ post.message }}</h3>
-        <hr />
-        <div class="d-flex justify-content-center mb-5">
+        <div class="d-flex justify-content-between mb-2">
+          <h3 class="card-title my-5">{{ post.message }}</h3>
           <Like @update-likes="getPosts" :postParent="post" />
+        </div>
+        <div class="d-flex justify-content-start mb-2">
           <PostModify @post-modified="getPosts" :postParent="post" />
           <PostDelete @post-deleted="getPosts" :postParent="post" />
         </div>
         <div class="list-group">
+          <h4>Commentaires :</h4>
           <div class="d-flex list-group-item justify-content-between align-items-center" v-for="(comment, index) in post.Comments" :key="index">
             <div class="text-start">
               <span>{{ comment.User.username }} : </span>
@@ -80,7 +82,12 @@
           .catch((error) => console.log(error));
       },
       getDate(date) {
-        return moment(date).locale("fr").format("llll");
+        // check if the date of the post is today
+        if (moment(date).isSame(new Date(), "day")) {
+          return moment(date).locale("fr").fromNow();
+        } else {
+          return moment(date).locale("fr").format("llll");
+        }
       },
     },
   };

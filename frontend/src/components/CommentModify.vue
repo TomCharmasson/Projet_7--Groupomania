@@ -1,8 +1,9 @@
 <template>
-  <form class="d-flex justify-content-between" @submit.prevent="updateComment">
+  <form v-if="!hideModifyComment" class="d-flex justify-content-between" @submit.prevent="updateComment">
     <input type="textarea" class="form-control form-control-sm form-floating mx-1" placeholder="Modif. ici..." v-model="message" required />
     <button class="btn btn-sm btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
   </form>
+  <button class="btn btn-sm btn-primary text-white mx-1" @click="hideModifyComment = !hideModifyComment">Modifier...</button>
 </template>
 
 <script>
@@ -13,6 +14,7 @@
       return {
         comment: null,
         message: "",
+        hideModifyComment: true,
       };
     },
 
@@ -37,6 +39,9 @@
             this.message = "";
           })
           .catch((error) => console.log(error));
+      },
+      hideCommentModify() {
+        this.hideModifyComment = true;
       },
     },
   };
