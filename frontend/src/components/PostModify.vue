@@ -29,8 +29,6 @@
       this.post = this.postParent;
     },
 
-    // TODO : Ajouter la possibilté de modifier l'image
-
     methods: {
       onSelect(event) {
         this.file = event.target.files[0];
