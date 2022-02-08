@@ -1,7 +1,9 @@
 <template>
-  <form @submit.prevent="deleteComment">
-    <button class="btn btn-sm btn-secondary text-white" type="submit" value="submit">❌</button>
-  </form>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <form @submit.prevent="deleteComment" class="d-flex justify-content-between">
+      <button class="btn btn-sm btn-secondary text-white m-1" type="submit" value="submit">❌</button>
+    </form>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-xl navbar-light bg-light mb-5 nav-bar-style">
+  <nav class="navbar navbar-expand-xl navbar-light mb-5 nav-bar-style">
     <div class="container-fluid">
       <div class="nav-item">
         <img src="../assets/logos/icon-left-font.png" class="img-fluid navbar-brand" alt="Logo Groupomania" width="240" />
@@ -68,6 +68,7 @@
   #nav a.router-link-active {
     color: rgb(255, 255, 255);
     background-color: rgb(100, 100, 100);
+    padding: 8px;
   }
 
   .nav-bar-style {

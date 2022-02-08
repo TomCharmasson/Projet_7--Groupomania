@@ -1,19 +1,18 @@
 <template>
   <section>
     <Header />
-    <div class="profile">
+    <div class="container col-lg-6 mx-auto mb-5">
       <h1>Mon Profil</h1>
-      <div class="py-3">
-        <img :src="user.avatar" class="img-fluid rounded-circle mb-3" alt="Photo de profil" width="260" />
-        <div class="container col-lg-6 mx-auto">
-          <form @submit.prevent="modifyAvatar" enctype="multipart/form-data">
-            <input type="file" ref="file" @change="onSelect" class="form-control form-floating mb-3" required />
-            <button class="w-50 btn btn-lg btn-primary text-white" type="submit" value="submit">Uploader l'avatar</button>
-          </form>
-        </div>
-        <h3 class="my-5 fw-bold">Pseudo : {{ user.username }}</h3>
-        <p class="text-muted">Date de création : {{ getDate(user.createdAt) }}</p>
+      <img :src="user.avatar" class="img-fluid rounded-circle mb-3" alt="Photo de profil" width="260" />
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center mb-4">
+        <form @submit.prevent="modifyAvatar" enctype="multipart/form-data">
+          <input type="file" ref="file" name="file" id="file" @change="onSelect" class="input-file form-control form-floating mb-3" required />
+          <label for="file" class="m-1 btn btn btn-primary text-white">📸</label>
+          <button class="m-1 btn btn btn-primary text-white" type="submit" value="submit">Uploader l'avatar</button>
+        </form>
       </div>
+      <h3 class="fw-bold">Pseudo : {{ user.username }}</h3>
+      <p class="text-muted">Date de création : {{ getDate(user.createdAt) }}</p>
     </div>
     <Footer />
   </section>
@@ -75,9 +74,13 @@
   };
 </script>
 
-<style>
+<style scoped>
   .rounded-circle {
     border-radius: 50%;
     border: black solid 2px;
+  }
+
+  .input-file {
+    display: none;
   }
 </style>

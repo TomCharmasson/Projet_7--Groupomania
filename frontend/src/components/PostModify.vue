@@ -1,10 +1,13 @@
 <template>
-  <button class="btn btn-primary text-white mx-1" @click="hideModifyPost = !hideModifyPost">Modifier ➡️</button>
-  <form v-if="!hideModifyPost" class="d-flex justify-content-center" @submit.prevent="updatePost">
-    <input type="textarea" class="form-control form-floating mx-1" placeholder="Modifié ici..." v-model="message" required />
-    <input type="file" ref="file" @change="onSelect" class="form-control form-floating mx-1" />
-    <button class="btn btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
-  </form>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <button class="btn btn-primary text-white m-1" @click="hideModifyPost = !hideModifyPost">Modifier ➡️</button>
+    <form v-if="!hideModifyPost" class="d-flex justify-content-center" @submit.prevent="updatePost">
+      <input type="textarea" class="form-control form-floating m-1" placeholder="Modifié ici..." v-model="message" required />
+      <label for="file" class="m-1 btn btn-primary text-white">📸</label>
+      <input type="file" ref="file" name="file" id="file" @change="onSelect" class="input-file form-control form-floating mx-1" />
+      <button class="btn btn-primary text-white m-1" type="submit" value="submit">Modifier</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -58,3 +61,9 @@
     },
   };
 </script>
+
+<style scoped>
+  .input-file {
+    display: none;
+  }
+</style>

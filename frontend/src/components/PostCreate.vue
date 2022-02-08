@@ -1,9 +1,14 @@
 <template>
-  <div class="container col-lg-6 mx-auto">
+  <div class="container col-lg-6 mx-auto mb-5 p-3">
     <form @submit.prevent="createPost" enctype="multipart/form-data">
-      <input type="textarea" class="form-control form-floating mb-3" placeholder="Votre Post ici..." id="post" v-model="message" required />
-      <input type="file" ref="file" @change="onSelect" class="form-control form-floating mb-3" />
-      <button class="w-75 btn btn-lg btn-primary mb-5 text-white" type="submit" value="submit">Partage un Post</button>
+      <div>
+        <input type="textarea" class="form-control form-floating mb-3" placeholder="Votre Post ici..." id="post" v-model="message" required />
+        <input type="file" ref="file" name="file" id="file" @change="onSelect" class="input-file form-control form-floating mb-3" />
+      </div>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+        <label for="file" class="btn btn-lg btn-primary text-white">📸</label>
+        <button class="btn btn-lg btn-primary text-white" type="submit" value="submit">Partage un Post</button>
+      </div>
     </form>
   </div>
 </template>
@@ -40,3 +45,14 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .input-file {
+    display: none;
+  }
+
+  .container {
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px 0px darkgray;
+  }
+</style>

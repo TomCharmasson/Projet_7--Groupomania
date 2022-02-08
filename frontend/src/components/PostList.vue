@@ -93,11 +93,19 @@
   };
 </script>
 
-<style>
+<style lang="scss" scoped>
   .nom {
     font-weight: 800;
   }
   .date {
     font-style: italic;
+  }
+
+  .card {
+    border-radius: 10px;
+    box-shadow: 0px 3px 12px 0px darkgray;
+  }
+  .list-group-item {
+    box-shadow: 0px 1px 2px 0px darkgray;
   }
 </style>

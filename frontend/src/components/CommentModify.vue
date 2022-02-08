@@ -1,9 +1,11 @@
 <template>
-  <form v-if="!hideModifyComment" class="d-flex justify-content-between" @submit.prevent="updateComment">
-    <input type="textarea" class="form-control form-control-sm form-floating mx-1" placeholder="Modif. ici..." v-model="message" required />
-    <button class="btn btn-sm btn-primary text-white mx-1" type="submit" value="submit">Modifier</button>
-  </form>
-  <button class="btn btn-sm btn-primary text-white mx-1" @click="hideModifyComment = !hideModifyComment">Modifier...</button>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <form v-if="!hideModifyComment" class="d-flex justify-content-between" @submit.prevent="updateComment">
+      <input type="textarea" class="form-control form-control-sm form-floating m-1" placeholder="Modif. ici..." v-model="message" required />
+      <button class="btn btn-sm btn-primary text-white m-1" type="submit" value="submit">Modifier</button>
+    </form>
+    <button class="btn btn-sm btn-primary text-white m-1" @click="hideModifyComment = !hideModifyComment">Modifier...</button>
+  </div>
 </template>
 
 <script>
