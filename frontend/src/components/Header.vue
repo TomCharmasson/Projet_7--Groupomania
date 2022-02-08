@@ -1,23 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-xl navbar-light bg-light mb-5 nav-bar-style">
     <div class="container-fluid">
-      <div>
-        <img src="../assets/logos/icon-left-font.png" class="img-fluid" alt="Logo Groupomania" width="240" />
+      <div class="nav-item">
+        <img src="../assets/logos/icon-left-font.png" class="img-fluid navbar-brand" alt="Logo Groupomania" width="240" />
       </div>
-      <button
-        class="navbar-toggler collapsed"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarsExample06"
-        aria-controls="navbarsExample06"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#my-navbar" aria-controls="my-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-collapse collapse" id="navbarsExample06" style="">
-        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+      <div class="collapse navbar-collapse" id="my-navbar">
+        <ul class="navbar-nav ms-auto mb-2 mb-xl-0 d-flex align-items-center">
           <li class="nav-item p-1">
             <img :src="user.avatar" alt="Image de profile" class="rounded-circle" width="40" height="40" />
           </li>
