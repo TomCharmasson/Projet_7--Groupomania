@@ -48,6 +48,7 @@
         this.$store.dispatch("setUser", null);
         this.$router.push({ name: "Login" });
       },
+      // TODO: Method to upadte the avatar
     },
   };
 </script>
