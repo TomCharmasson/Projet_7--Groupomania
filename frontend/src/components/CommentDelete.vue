@@ -1,5 +1,5 @@
 <template>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+  <div v-if="isCommentOwner" class="d-grid gap-2 d-md-flex justify-content-md-center">
     <form @submit.prevent="deleteComment" class="d-flex justify-content-between">
       <button class="btn btn-sm btn-secondary text-white m-1" type="submit" value="submit">❌</button>
     </form>
@@ -14,6 +14,12 @@
       commentParent: {
         type: Object,
         required: true,
+      },
+    },
+
+    computed: {
+      isCommentOwner() {
+        return this.commentParent.UserId === this.$store.getters.getUser.id;
       },
     },
 

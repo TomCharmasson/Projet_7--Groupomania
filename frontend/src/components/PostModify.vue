@@ -1,8 +1,8 @@
 <template>
-  <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+  <div v-if="isPostOwner" class="d-grid gap-2 d-md-flex justify-content-md-center">
     <button class="btn btn-primary text-white m-1" @click="hideModifyPost = !hideModifyPost">Modifier ➡️</button>
     <form v-if="!hideModifyPost" class="d-flex justify-content-center" @submit.prevent="updatePost">
-      <input type="textarea" class="form-control form-floating m-1" placeholder="Modifié ici..." v-model="message" required />
+      <input type="textarea" class="form-control form-floating m-1" :placeholder="post.message" v-model="message" required />
       <label for="file" class="m-1 btn btn-primary text-white">📸</label>
       <input type="file" ref="file" name="file" id="file" @change="onSelect" class="input-file form-control form-floating mx-1" />
       <button class="btn btn-primary text-white m-1" type="submit" value="submit">Modifier</button>
@@ -32,6 +32,13 @@
 
     created() {
       this.post = this.postParent;
+    },
+
+    computed: {
+      // Check if post belongs to current user
+      isPostOwner() {
+        return this.post.User.id === this.$store.getters.getUser.id;
+      },
     },
 
     methods: {

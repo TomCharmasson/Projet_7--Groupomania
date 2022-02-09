@@ -20,7 +20,7 @@
           <PostModify @post-modified="getPosts" :postParent="post" />
           <PostDelete @post-deleted="getPosts" :postParent="post" />
         </div>
-        <div class="list-group">
+        <div v-if="hasComments(post)" class="list-group">
           <h4>Commentaires :</h4>
           <div class="d-flex list-group-item justify-content-between align-items-center" v-for="(comment, index) in post.Comments" :key="index">
             <div class="text-start">
@@ -88,6 +88,9 @@
         } else {
           return moment(date).locale("fr").format("llll");
         }
+      },
+      hasComments(post) {
+        return post.Comments.length > 0;
       },
     },
   };
