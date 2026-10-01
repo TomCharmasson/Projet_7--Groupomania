@@ -22,14 +22,12 @@ exports.signup = async (req, res, next) => {
         password: hash,
         admin: false,
         avatar: `${req.protocol}://${req.get("host")}/images/profile/default-profile.jpg`,
-      })
-        .then((newUser) =>
-          res.status(200).json({
-            token: jwt.sign({ user: newUser }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
-            user: newUser,
-          })
-        )
-        .catch((error) => res.status(400).json({ error }));
+      });
+      const publicUser = toPublicUser(newUser);
+      return res.status(200).json({
+        token: jwt.sign({ user: publicUser }, process.env.JWT_SECRET, { expiresIn: "24h" }),
+        user: publicUser,
+      });
     }
   } catch (error) {
     console.error(error);
@@ -52,14 +50,21 @@ exports.login = async (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "User or password not found ! ❌ 🙅‍♂️" });
           }
+          const publicUser = toPublicUser(user);
           res.status(200).json({
-            token: jwt.sign({ user: user }, "RANDOM_TOKEN_SECRET", { expiresIn: "24h" }),
-            user: user,
+            token: jwt.sign({ user: publicUser }, process.env.JWT_SECRET, { expiresIn: "24h" }),
+            user: publicUser,
           });
         })
         .catch((error) => res.status(500).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
+};
+
+const toPublicUser = (user) => {
+  const publicUser = user.get({ plain: true });
+  delete publicUser.password;
+  return publicUser;
 };
 
 exports.getAllUsers = async (req, res, next) => {

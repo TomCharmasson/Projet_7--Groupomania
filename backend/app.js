@@ -1,8 +1,13 @@
 // Import packages
+require("dotenv").config();
+
+if (!process.env.DB_USERNAME || !process.env.JWT_SECRET) {
+  throw new Error("DB_USERNAME and JWT_SECRET must be set in the environment");
+}
+
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet"); // Sécuriser l'app Express en définissant divers en-têtes HTTP
-const { sequelize } = require("./models"); // ORM qui permet de mapper les classes métier avec les tables d'un SGBDR en JavaScript
 const cors = require("cors"); // Permet de définir des en-têtes HTTP pour les requêtes HTTP
 
 // Import routes
@@ -36,17 +41,5 @@ app.use("/api/auth", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/like", likeRoutes);
-
-// Using sequelize to connect to the database
-const syncDatabase = async () => {
-  try {
-    await sequelize.sync({ alter: true });
-    console.log("Database synced 🛢⚡︎🔄 ");
-  } catch (exception) {
-    console.error("Cannot connect to the Database :", exception);
-  }
-};
-
-syncDatabase();
 
 module.exports = app;

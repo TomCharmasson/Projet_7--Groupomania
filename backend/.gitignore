@@ -1,3 +1,7 @@
 /node_modules
 /images
-/config
+/config/*
+!/config/config.example.json
+/.env
+/.env.*
+!/.env.example
